@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ImageAddress>ImageAddress
+    <after_ejection>./Resources/image/after_ejection.png</after_ejection>
+    <before_ejection>./Resources/image/before_ejection.png</before_ejection>
+    <grab_addr_after>./Resources/image/grabImageAfter.png</grab_addr_after>
+    <grab_addr_before>./Resources/image/grabImageBefore.png</grab_addr_before>
+</ImageAddress>

@@ -1,0 +1,6 @@
+首先需要以管理员身份进入C:\Windows\Microsoft.NET\Framework64\v4.0.30319
+
+RegAsm C:\Users\lx\Desktop\MoldMachine\Adam6060\Adam6060Com\Adam6060Com\bin\Debug\Adam6060Com.dll /tlb:Adam6060Com.tlb /codebase
+
+卸载com
+RegAsm  /u  C:\Users\lx\Desktop\MoldMachine\Adam6060\Adam6060Com\Adam6060Com\bin\Debug\Adam6060Com.dll  /tlb:Adam6060Com.tlb /codebase

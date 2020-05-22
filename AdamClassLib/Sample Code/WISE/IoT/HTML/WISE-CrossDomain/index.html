@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Advanetch Web Tool">
+		<meta name="author" content="Advantech">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<!-- Bootstrap Core CSS -->
+		<link href="bootstrap.css" rel="stylesheet">
+		<!-- nv.d3 core CSS -->
+		<!-- <link href="/config/nvd3.css" rel="stylesheet" type="text/css"> -->
+		<!-- advantech core CSS -->
+		<link href="style.css" rel="stylesheet">
+		<!-- jQuery Version 1.11.0 -->
+		<script src="jquery.js"></script>
+		<!-- moment and Bootstrap Core JavaScript -->
+		<script src="bootstrap.js"></script>
+	</head>
+	<body>
+		<div id="wrapper" class='page-wrap'>
+			<!--Navigation-->
+			<nav class='navbar navbar-inverse navbar-fixed-top' id='titleNavbar'>
+				<!--Brand and toggle get grouped for better mobile display -->
+				<div class='navbar-header'>
+					<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#collapseableNavbar' style="z-index:500;">
+						<span class='sr-only'>Toggle navigation</span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<span class='navbar-center' style='font-size:20px;'>WISE-4000 Series&nbsp;Cross Domain Example</span>
+					<span class='navbar-brand' style='font-size:12px;'>v1.0.4 <br>&copy; 2016 By Advantech</span>
+				</div>
+				<!--Sidebar Menu Items - These collapse to the responsive navigation menu on small screens-->
+				<div class='collapse navbar-collapse' id ='collapseableNavbar'>
+					<ul class='nav navbar-nav side-nav main-menu' id ='collapseableListview' style='font-size:16px;'>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnConnectDevice()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 System Information
+							</button>
+						</li>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnDeviceInfo()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 Device Information
+							</button>
+						</li>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnNetworkConf()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 Network Config
+							</button>
+						</li>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnNetworkApp()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 Network App
+							</button>
+						</li>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnDoStatus()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 DO Channel Status
+							</button>
+						</li>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnComBitStatus()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 COM Bit Status <br> (WISE-4051 Only)
+							</button>
+						</li>
+						<li>
+							<button class='btn btn-info menu-bottom' onclick="onBtnComWordStatus()" data-toggle='collapse' data-target='#collapseableNavbar'>
+								 COM Word Status <br> (WISE-4051 Only)
+							</button>
+						</li>
+					</ul>
+				</div><!--.navbar-collapse-->
+			</nav>
+			<div id="page-context">
+				<div id="page-wrapper" style="padding: 20px 60px;">
+					<div id="informSection">
+						<div class="col-lg-8">
+							<div class='panel panel-warning' id='informationPanel'>
+								<div class='panel-heading'>
+								</div>
+								<div class='panel-body' id="BulletinBoard">
+									The WISE-4000 series provide a cost-effective wireless solution for cloud applications. By supporting direct cloud access, new web services and datalogs, the WISE-4000 series can seamlessly connect to the cloud for a wireless solution.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="connectSection">
+						<div class="col-lg-8">
+							<div class='form-horizontal'>
+								<div class='form-group'>
+									<label class='col-sm-2 control-label' for='form-styles'>IP Address</label>
+									<div class='col-sm-4'>
+										<input type='text' id='ipAddress' class='form-control' maxlength="31" value="192.168.100.98">
+									</div>
+								</div>
+								<div class='form-group'>
+									<label class='col-sm-2 control-label' for='form-styles'>Account</label>
+									<div class='col-sm-4'>
+										<input type='text' id='account' class='form-control' maxlength="6" value="root">
+									</div>
+								</div>
+								<div class='form-group'>
+									<label class='col-sm-2 control-label' for='form-styles'>Password</label>
+									<div class='col-sm-4'>
+										<input type='text' id='password' class='form-control' maxlength="8" value="00000000">
+									</div>
+								</div>
+								<div class='form-group'>
+									<label class='col-sm-2 control-label' for='form-styles'></label>
+									<div class='col-sm-4'>
+										<button type='submit' class='btn btn-success' onclick="onBtnConnectDevice()">
+											 Connect Device
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- wrapper -->
+	</body>
+</html>
+
+<script>
+	var img_LinkLab;
+	var str_SystemInfo = "/sys_info";
+	var str_DeviceInfo = "/profile";  
+	var str_NetWorkBasicConfigInfo = "/net_basic";
+	var str_NetWorkAdvancedConfigInfo = "/net_config";
+	var str_DoChannelValueInfo = "/do_value/slot_0";
+	//var str_DeviceIpAddress = "10.0.0.1";
+	
+	var int_FadeInTime = 500;
+  
+	var Base64 = {
+		  // private property
+		  _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+		  // public method for encoding
+		  encode : function (input) {
+			  var output = "";
+			  var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+			  var i = 0;
+			  input = Base64._utf8_encode(input);
+			  while (i < input.length) {
+				  chr1 = input.charCodeAt(i++);
+				  chr2 = input.charCodeAt(i++);
+				  chr3 = input.charCodeAt(i++);
+	   
+				  enc1 = chr1 >> 2;
+				  enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+				  enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+				  enc4 = chr3 & 63;
+	   
+				  if (isNaN(chr2)) {
+					  enc3 = enc4 = 64;
+				  } else if (isNaN(chr3)) {
+					  enc4 = 64;
+				  }
+				  output = output +
+				  this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+				  this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+			  }
+			  return output;
+		  },
+	   
+		  // public method for decoding
+		  decode : function (input) {
+			  var output = "";
+			  var chr1, chr2, chr3;
+			  var enc1, enc2, enc3, enc4;
+			  var i = 0;
+	   
+			  input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+	   
+			  while (i < input.length) {
+	   
+				  enc1 = this._keyStr.indexOf(input.charAt(i++));
+				  enc2 = this._keyStr.indexOf(input.charAt(i++));
+				  enc3 = this._keyStr.indexOf(input.charAt(i++));
+				  enc4 = this._keyStr.indexOf(input.charAt(i++));
+	   
+				  chr1 = (enc1 << 2) | (enc2 >> 4);
+				  chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+				  chr3 = ((enc3 & 3) << 6) | enc4;
+	   
+				  output = output + String.fromCharCode(chr1);
+	   
+				  if (enc3 != 64) {
+					  output = output + String.fromCharCode(chr2);
+				  }
+				  if (enc4 != 64) {
+					  output = output + String.fromCharCode(chr3);
+				  }
+	   
+			  }
+	   
+			  output = Base64._utf8_decode(output);
+	   
+			  return output;
+	   
+		  },
+	   
+		  // private method for UTF-8 encoding
+		  _utf8_encode : function (string) {
+			  string = string.replace(/\r\n/g,"\n");
+			  var utftext = "";
+	   
+			  for (var n = 0; n < string.length; n++) {
+	   
+				  var c = string.charCodeAt(n);
+	   
+				  if (c < 128) {
+					  utftext += String.fromCharCode(c);
+				  }
+				  else if((c > 127) && (c < 2048)) {
+					  utftext += String.fromCharCode((c >> 6) | 192);
+					  utftext += String.fromCharCode((c & 63) | 128);
+				  }
+				  else {
+					  utftext += String.fromCharCode((c >> 12) | 224);
+					  utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+					  utftext += String.fromCharCode((c & 63) | 128);
+				  }
+	   
+			  }
+			  return utftext;
+		  },
+	   
+		  // private method for UTF-8 decoding
+		  _utf8_decode : function (utftext) {
+			  var string = "";
+			  var i = 0;
+			  var c = c1 = c2 = 0;
+	   
+			  while ( i < utftext.length ) {
+	   
+				  c = utftext.charCodeAt(i);
+	   
+				  if (c < 128) {
+					  string += String.fromCharCode(c);
+					  i++;
+				  }
+				  else if((c > 191) && (c < 224)) {
+					  c2 = utftext.charCodeAt(i+1);
+					  string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+					  i += 2;
+				  }
+				  else {
+					  c2 = utftext.charCodeAt(i+1);
+					  c3 = utftext.charCodeAt(i+2);
+					  string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+					  i += 3;
+				  }
+			  }
+			  return string;
+		  }
+	}
+	
+	function make_basic_auth(user, password) {
+		var tok = user + ':' + password;
+		var hash = Base64.encode(tok);
+		return "Basic " + hash;
+	}
+	
+	function onBtnConnectDevice(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/sys_info";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/><br/>";
+			str_ResponseInfo = str_ResponseInfo + "Model ID : " + jsonObj.Id.trim() + "<br/>"; 
+			str_ResponseInfo = str_ResponseInfo + "User Defined Module Name : " + jsonObj.Nm.trim() + "<br/>"; 
+			str_ResponseInfo = str_ResponseInfo + "Module Description : " + jsonObj.Des.trim() + "<br/>"; 
+			str_ResponseInfo = str_ResponseInfo + "UUID : " + jsonObj.UID.trim();
+			str_ResponseInfo = str_ResponseInfo + "</p>";
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function onBtnDeviceInfo(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/profile";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/><br/>";  									
+			str_ResponseInfo = str_ResponseInfo + "Model Id : " + jsonObj.Dev[0].Id.trim() + "<br/>"; 
+			str_ResponseInfo = str_ResponseInfo + "Total DI Number : " + jsonObj.Dev[0].DIn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Total DO Number : " + jsonObj.Dev[0].DOn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Total Relay Number : " + jsonObj.Dev[0].RLAn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Total AI Number : " + jsonObj.Dev[0].AIn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Total AO Number : " + jsonObj.Dev[0].AOn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Total UI Number : " + jsonObj.Dev[0].UIn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Total Counter Number : " + jsonObj.Dev[0].Cntn.toString().trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Firmware Version : " + jsonObj.Dev[0].FwVer.toString().trim();
+			str_ResponseInfo = str_ResponseInfo + "</p>";
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function onBtnNetworkConf(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/net_basic";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/><br/>";  									
+			str_ResponseInfo = str_ResponseInfo + "MAC address : " + jsonObj.MAC.trim() + "<br/>"; 
+			str_ResponseInfo = str_ResponseInfo + "IP Address : " + jsonObj.IP.trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Subnet Mask : " + jsonObj.Msk.trim() + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "Gateway Address : " + jsonObj.GW.trim();
+			str_ResponseInfo = str_ResponseInfo + "</p>"; 
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function onBtnNetworkApp(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/net_config";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/><br/>";  									
+			str_ResponseInfo = str_ResponseInfo + "Web Server Port (Default:80) : " + jsonObj.PWeb.toString().trim() + "<br/>"; 
+			str_ResponseInfo = str_ResponseInfo + "Hostidle (Timeout) : " + jsonObj.Idl.toString().trim() + "<br/>";
+			if (jsonObj.CWDT == 0)
+			{
+			  str_wdtMode = "Disabled";
+			}
+			else
+			{
+			  str_wdtMode = "Enabled";
+			}
+			str_ResponseInfo = str_ResponseInfo + "Communication WDT Trigger : " + str_wdtMode;    							  	
+			str_ResponseInfo = str_ResponseInfo + "</p>";
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function onBtnDoStatus(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/do_value/slot_0";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			 str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "<ul>";
+			for(var i = 0; i< jsonObj.DOVal.length; i++)
+			{
+				var do_Value = jsonObj.DOVal[i].Val;
+				str_ResponseInfo += "<li>";
+				str_ResponseInfo += "DO Channel "+ i + " value: ";
+				str_ResponseInfo += jsonObj.DOVal[i].Val;
+				str_ResponseInfo += '&nbsp;&nbsp;&nbsp;<button class="btn btn-lg btn-info " onclick="pageOnClickBtnDoSwitch(' + i +","+ do_Value +')" style="padding:4px 5px 2px 5px; font-size: 0.8em; " >Switch</button><p/><p/>';
+				str_ResponseInfo += "</li>";
+			}
+			str_ResponseInfo = str_ResponseInfo + "</ul>";
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function pageOnClickBtnDoSwitch(channel, value){
+        var str_URL = "http://" + $('#ipAddress').val() + "/do_value/slot_0";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);
+        var jsonObj = {"DOVal":[]};
+
+        if(value)
+            value = 0;
+        else
+            value = 1;
+        jsonObj.DOVal.push({"Ch":channel, "Val":value});
+		
+		ajaxPatchRequest(str_URL, authInfo, jsonObj, onBtnDoStatus);
+    }
+	
+	function onBtnComBitStatus(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/expansion_bit/com_1";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			 str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "<ul>";
+			for(var i = 0; i< jsonObj.ExpBit.length; i++)
+			{
+				var bit_Value = jsonObj.ExpBit[i].Val;
+				str_ResponseInfo += "<li>";
+				str_ResponseInfo += "Channel "+ i + ": SlaveID: " + jsonObj.ExpBit[i].SID;
+				if(jsonObj.ExpBit[i].Evt == 0)
+					str_ResponseInfo += ", value: " + jsonObj.ExpBit[i].Val;
+				else
+					str_ResponseInfo += ", Error: code: " + jsonObj.ExpBit[i].Evt;				
+				str_ResponseInfo += "</li>";
+			}
+			str_ResponseInfo = str_ResponseInfo + "</ul>";
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function onBtnComWordStatus(){
+		var str_URL = "http://" + $('#ipAddress').val() + "/expansion_word/com_1";
+		var userId = $('#account').val();
+		var userPw = $('#password').val();
+		var authInfo = make_basic_auth(userId,userPw);		
+		ajaxRequest(str_URL, authInfo, function(jsonObj){
+			var str_ResponseInfo = "<p>";
+			 str_ResponseInfo = str_ResponseInfo + "Resource URI : " + str_URL + "<br/>";
+			str_ResponseInfo = str_ResponseInfo + "<ul>";
+			for(var i = 0; i< jsonObj.ExpWord.length; i++)
+			{
+				var bit_Value = jsonObj.ExpWord[i].Val;
+				str_ResponseInfo += "<li>";
+				str_ResponseInfo += "Channel "+ i + ": SlaveID: " + jsonObj.ExpWord[i].SID;
+				if(jsonObj.ExpWord[i].Evt == 0)
+					str_ResponseInfo += ", value: " + jsonObj.ExpWord[i].Val;
+				else
+					str_ResponseInfo += ", Error: code: " + jsonObj.ExpWord[i].Evt;
+				str_ResponseInfo += "</li>";
+			}
+			str_ResponseInfo = str_ResponseInfo + "</ul>";
+			$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+			$('#connectSection').hide();
+		});
+	}
+	
+	function ajaxRequest(str_URL, authInfo, callBackFunction){
+		var str_ResponseInfo = "";
+		try
+		{
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+				http_Request = new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+				http_Request=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			http_Request.onreadystatechange=function()
+			{			
+				if (http_Request.readyState==4)
+				{
+					if (http_Request.status==200)
+					{						
+						try
+						{
+							//Javascript function JSON.parse to parse JSON data
+							var jsonObj;
+							jsonObj = JSON.parse(http_Request.responseText);
+							
+							if( jsonObj!=null && jsonObj!=undefined)
+							{
+								if(typeof(callBackFunction) == "function")
+									callBackFunction(jsonObj);
+							}
+							else
+							{
+								str_ResponseInfo = str_ResponseInfo + "<p>";
+								str_ResponseInfo = str_ResponseInfo + "Err: JSON parse failed!";
+								str_ResponseInfo = str_ResponseInfo + "</p>";
+								$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);
+							}
+						}
+						catch(e)
+						{
+							str_ResponseInfo = str_ResponseInfo + "<p>";
+							str_ResponseInfo = str_ResponseInfo + "Err: ResponseText is not a valid JSON string!";
+							str_ResponseInfo = str_ResponseInfo + "</p>";
+							$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);            		
+						}					  
+					}
+					else
+					{
+						str_ResponseInfo = str_ResponseInfo + "<p>";
+						str_ResponseInfo = str_ResponseInfo + "Err: http_Request.status = " + http_Request.status;
+						str_ResponseInfo = str_ResponseInfo + "</p>";
+						$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);            		  						
+					}
+				}
+			}			
+  
+			http_Request.open( "GET", str_URL, true );
+			http_Request.setRequestHeader("Authorization", authInfo);
+			//http_Request.withCredentials = true; //for cross domain
+			http_Request.send();
+		}
+		catch(e)
+		{
+			$('#BulletinBoard').text(" Err: " + e + "!").hide().fadeIn(int_FadeInTime);
+		}
+	}
+	
+	function ajaxPatchRequest(str_URL, authInfo, jsonObj, callBackFunction){
+		var str_ResponseInfo = "";
+		try
+		{
+				if (window.XMLHttpRequest)
+				{// code for IE7+, Firefox, Chrome, Opera, Safari
+					http_Request = new XMLHttpRequest();
+				}
+				else
+				{// code for IE6, IE5
+					http_Request=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				http_Request.onreadystatechange=function()
+				{			
+					if (http_Request.readyState==4)
+					{
+						if (http_Request.status==200)
+						{						
+							if(typeof(callBackFunction) == "function")
+								callBackFunction();				  
+						}
+						else
+						{
+							str_ResponseInfo = str_ResponseInfo + "<p>";
+							str_ResponseInfo = str_ResponseInfo + "Err: http_Request.status = " + http_Request.status;
+							str_ResponseInfo = str_ResponseInfo + "</p>";
+							$('#BulletinBoard').html(str_ResponseInfo).hide().fadeIn(int_FadeInTime);            		  						
+						}
+					}
+				}			
+	  
+				http_Request.open( "PATCH", str_URL, true );
+				http_Request.setRequestHeader("Authorization", authInfo);
+				http_Request.withCredentials = true; //for cross domain
+				http_Request.send(JSON.stringify(jsonObj));
+		}
+		catch(e)
+		{
+			$('#BulletinBoard').text(" Err: " + e + "!").hide().fadeIn(int_FadeInTime);
+		}
+	}
+
+</script>

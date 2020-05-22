@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3D752A57-BB42-488D-9F1F-1A6F9D5B740A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>APAX_Coupler_Win32_Sample</RootNamespace>
+    <AssemblyName>APAX-Coupler-Win32-Sample</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="Advantech.Adam, Version=8.2.10.0, Culture=neutral, PublicKeyToken=c24039c75946be9c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Advantech.Common, Version=8.2.10.0, Culture=neutral, PublicKeyToken=c24039c75946be9c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APAX-Coupler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="APAX-Coupler.Designer.cs">
+      <DependentUpon>APAX-Coupler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="APAX-Coupler.resx">
+      <DependentUpon>APAX-Coupler.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\APAX-5013\APAX-5013.csproj">
+      <Project>{6AA49041-15CE-48BE-BD37-C4E947593B9C}</Project>
+      <Name>APAX-5013</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017H\APAX-5017H.csproj">
+      <Project>{671E3FC8-8452-4BDE-A555-B47A16108B51}</Project>
+      <Name>APAX-5017H</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017PE\APAX-5017PE.csproj">
+      <Project>{3FFF8BFF-441A-448E-A57D-750538618337}</Project>
+      <Name>APAX-5017PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017\APAX-5017.csproj">
+      <Project>{684FB428-FD43-41A7-917B-66A82BF4DA1D}</Project>
+      <Name>APAX-5017</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5018\APAX-5018.csproj">
+      <Project>{ADC3616F-001B-47EE-9558-57425E1B3326}</Project>
+      <Name>APAX-5018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5028\APAX-5028.csproj">
+      <Project>{7DD232F2-4859-4787-ACA3-566C0C2AC575}</Project>
+      <Name>APAX-5028</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040PE\APAX-5040PE.csproj">
+      <Project>{C90F3AD8-0240-471C-BCA3-EF6CB6756513}</Project>
+      <Name>APAX-5040PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040\APAX-5040.csproj">
+      <Project>{ACAB8756-7908-4298-B964-81ABA0DE705B}</Project>
+      <Name>APAX-5040</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5045\APAX-5045.csproj">
+      <Project>{34176E8B-F6FC-42FE-9F2B-0EDA803D0D33}</Project>
+      <Name>APAX-5045</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046SO\APAX-5046SO.csproj">
+      <Project>{2B8B7A9E-3AD7-4B2B-8C18-96C6AE2AD1E3}</Project>
+      <Name>APAX-5046SO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046\APAX-5046.csproj">
+      <Project>{81B51BEE-5CA4-4192-9E78-37E0B596ADA8}</Project>
+      <Name>APAX-5046</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060PE\APAX-5060PE.csproj">
+      <Project>{D5E9B6EE-2912-4A4D-8ABE-81516CB5B3CE}</Project>
+      <Name>APAX-5060PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060\APAX-5060.csproj">
+      <Project>{9C119DA8-284E-4A9C-A835-8F774CCC8BF0}</Project>
+      <Name>APAX-5060</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5080\APAX-5080.csproj">
+      <Project>{B58C86C7-3875-4E84-8288-98952A562FAE}</Project>
+      <Name>APAX-5080</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5082\APAX-5082.csproj">
+      <Project>{6DBF48B2-79E7-464D-B285-7E7FAA1FD65F}</Project>
+      <Name>APAX-5082</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5090\APAX-5090.csproj">
+      <Project>{8BF47342-35A9-47FE-8CFA-7AAB3203A009}</Project>
+      <Name>APAX-5090</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apax_IO_Module_Library\Apax_IO_Module_Library.csproj">
+      <Project>{92D8B317-FD18-4424-844A-26D9CFF57CAD}</Project>
+      <Name>Apax_IO_Module_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "APAX-PAC-BackupSys", "APAX-PAC-BackupSys\APAX-PAC-BackupSys.vbproj", "{2FAB493E-4EA8-440F-9E20-7CC053E353FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FAB493E-4EA8-440F-9E20-7CC053E353FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FAB493E-4EA8-440F-9E20-7CC053E353FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FAB493E-4EA8-440F-9E20-7CC053E353FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FAB493E-4EA8-440F-9E20-7CC053E353FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

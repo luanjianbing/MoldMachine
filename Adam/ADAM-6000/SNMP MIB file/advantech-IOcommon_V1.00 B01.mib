@@ -1,0 +1,1008 @@
+-- *****************************************************************
+-- ADVANTECH-IO-COMMON-MIB: Advantech Industrial IO Common MIB
+--
+-- Feb 2017, Industrial Automation Group
+--
+-- Copyright (c) 2017 by Advantech.
+-- All rights reserved.
+-- ****************************************************************
+
+ADVANTECH-IO-COMMON-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY,
+    enterprises, 
+    OBJECT-TYPE,
+    Integer32,
+    DisplayString FROM SNMPv2-TC;
+
+-- 1.3.6.1.4.1.10297
+    advantech OBJECT IDENTIFIER ::= { enterprises 10297 }
+    
+-- 1.3.6.1.4.1.10297.101
+advantechIOCommonMIB MODULE-IDENTITY
+    LAST-UPDATED    "201702101001Z"
+    ORGANIZATION    "Advantech eAutomation Group"
+    CONTACT-INFO    "Advantech eAutomation Embedded Software
+                     E-mail: support@advantech.com"
+    DESCRIPTION     "The MIB module is for common entities of Advantech automation IO devices.
+                     Copyright (C) Advantech eAutomation Group(2017)."
+
+-- * Revision history
+    REVISION        "201307050000Z"
+    DESCRIPTION     "Initial version of the Advantech Common MIB. "
+    REVISION        "201702101001Z"
+    DESCRIPTION     "Review the MIB content"
+    ::= { advantech 101 }
+    
+-- 1.3.6.1.4.1.10297.101.1
+    atBasicIO        OBJECT IDENTIFIER ::= {advantechIOCommonMIB 1}
+-- 1.3.6.1.4.1.10297.101.2
+    atIoDevice       OBJECT IDENTIFIER ::= {advantechIOCommonMIB 2}
+
+-- ***************************************************************************
+-- atBasicIO group                               
+--     a collection of objects common to all Advantech IO device.
+--
+--     Implementation of the Advantech IO Common group is mandatory 
+--     for all devices with Digital I/O or Analog I/O.  
+--     If an agent is not configured to have a value
+--     for any of these variables, a string of length 0 is
+--     returned.
+-- ***************************************************************************
+
+-- 1.3.6.1.4.1.10297.101.1.1
+    ioModuleObj         OBJECT IDENTIFIER ::= { atBasicIO 1 }    
+-- 1.3.6.1.4.1.10297.101.1.2
+    firmwareObj         OBJECT IDENTIFIER ::= { atBasicIO 2 }
+-- 1.3.6.1.4.1.10297.101.1.3
+    analogInputObj      OBJECT IDENTIFIER ::= { atBasicIO 3 }
+-- 1.3.6.1.4.1.10297.101.1.4
+    analogOutputObj     OBJECT IDENTIFIER ::= { atBasicIO 4 }
+-- 1.3.6.1.4.1.10297.101.1.5
+    digitalInputObj     OBJECT IDENTIFIER ::= { atBasicIO 5 }
+-- 1.3.6.1.4.1.10297.101.1.6
+    digitalOutputObj    OBJECT IDENTIFIER ::= { atBasicIO 6 }
+-- 1.3.6.1.4.1.10297.101.1.7
+    counterObj          OBJECT IDENTIFIER ::= { atBasicIO 7 }
+
+--------------------------------------------------------------    
+    IoModuleEntry ::= SEQUENCE {
+        ioModuleIndex           Integer32,
+        ioModuleSlotIndex       Integer32,
+        ioModuleIdentify        OCTET STRING,
+        ioModuleDescr           OCTET STRING,
+        ioModuleHostIdleTime    Integer32
+    }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1
+    ioModuleTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF IoModuleEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "The IO module table of the device"
+        ::= { ioModuleObj 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1.1
+    ioModuleEntry OBJECT-TYPE
+        SYNTAX IoModuleEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "Each entry contains IO module information."
+        INDEX { ioModuleIndex } 
+        ::= { ioModuleTable 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1.1.1
+    ioModuleIndex OBJECT-TYPE
+        SYNTAX  Integer32 (0..32)
+        ACCESS  read-only
+        STATUS  current
+        DESCRIPTION
+            "The index of the module entry."
+        ::= { ioModuleEntry 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1.1.2
+    ioModuleSlotIndex OBJECT-TYPE
+        SYNTAX  Integer32 (-1..31)
+        ACCESS  read-only
+        STATUS  current
+        DESCRIPTION
+            "The slot index of the module."
+        ::= { ioModuleEntry 2 }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1.1.3
+    ioModuleIdentify OBJECT-TYPE
+        SYNTAX  OCTET STRING (SIZE(1..16))
+        ACCESS  read-only
+        STATUS  current
+        DESCRIPTION
+            "The module ID."
+        ::= { ioModuleEntry 3 }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1.1.4
+    ioModuleDescr OBJECT-TYPE
+        SYNTAX  OCTET STRING (SIZE(1..256))
+        ACCESS  read-only
+        STATUS  current
+        DESCRIPTION
+            "The module description."
+        ::= { ioModuleEntry 4 }
+
+-- 1.3.6.1.4.1.10297.101.1.1.1.1.5
+    ioModuleHostIdleTime OBJECT-TYPE
+        SYNTAX  Integer32
+        ACCESS  read-only
+        STATUS  current
+        DESCRIPTION
+            "The idle timeout of the connecting host who will be disconnected when the timeout occurred."
+        ::= { ioModuleEntry 5 }  
+
+--------------------------------------------------------------    
+    FirmwareEntry ::= SEQUENCE {
+        firmwareIndex       Integer32,
+        firmwareIdentify    OCTET STRING,
+        firmwareVersion     OCTET STRING
+    }
+
+-- 1.3.6.1.4.1.10297.101.1.2.1      
+    firmwareTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF FirmwareEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION 
+            "The firmware table"
+        ::= { firmwareObj 1 }
+        
+-- 1.3.6.1.4.1.10297.101.1.2.1.1
+    firmwareEntry OBJECT-TYPE
+        SYNTAX FirmwareEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION 
+            "Each entry contains firmware information"  
+        INDEX { ioModuleIndex, firmwareIndex }
+        ::= { firmwareTable 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.2.1.1.1    
+    firmwareIndex OBJECT-TYPE
+        SYNTAX Integer32 (0..32)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The firmware index"
+        ::= { firmwareEntry 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.2.1.1.2        
+    firmwareIdentify OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..16))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The firmware chip ID"
+        ::= { firmwareEntry 2 }
+
+-- 1.3.6.1.4.1.10297.101.1.2.1.1.3        
+    firmwareVersion OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..16))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The firmware version"
+        ::= { firmwareEntry 3 }
+        
+--------------------------------------------------------------
+    AiEntry ::= SEQUENCE {
+        aiIndex             Integer32,
+        aiChannelIndex      Integer32,
+        aiModbusAddress     Integer32,    
+        aiSampleRate        Integer32,
+        aiBurnDetectMode    DisplayString,
+        aiIntergrationTime  DisplayString,
+        aiEnabled           INTEGER,    
+        aiAveraged          INTEGER,
+        aiBurnoutEnabled    INTEGER,
+        aiRangeName         OCTET STRING,
+        aiRangeCode         OCTET STRING,
+        aiRangeHigh         OCTET STRING,
+        aiRangeLow          OCTET STRING,
+        aiRangeUnit         OCTET STRING,
+        aiRawValue          OCTET STRING,
+        aiEngValue          OCTET STRING,
+        aiStatus            OCTET STRING
+    }    
+    
+-- 1.3.6.1.4.1.10297.101.1.3.1
+    aiTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF AiEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "The Analog input table"
+        ::= { analogInputObj 1 }
+      
+-- 1.3.6.1.4.1.10297.101.1.3.1.1
+    aiEntry OBJECT-TYPE
+        SYNTAX AiEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "Each entry contains AI information"  
+        INDEX { ioModuleIndex, aiIndex }
+        ::= { aiTable 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.1        
+    aiIndex OBJECT-TYPE
+        SYNTAX Integer32 (1..32)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each analog input contained by the IO module"
+        ::= { aiEntry 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.2        
+    aiChannelIndex OBJECT-TYPE
+        SYNTAX Integer32 (0..31)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The AI channel index"
+        ::= { aiEntry 2 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.3        
+    aiModbusAddress OBJECT-TYPE
+        SYNTAX Integer32 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The MODBUS address of the AI channel"
+        ::= { aiEntry 3 }
+        
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.4
+    aiSampleRate OBJECT-TYPE
+        SYNTAX Integer32 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The sampling rate."
+        ::= { aiEntry 4 }    
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.5        
+    aiBurnDetectMode OBJECT-TYPE
+        SYNTAX DisplayString 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The burnout detect mode of all AI channel. The value will be 'Down scale' or 'Up scale'"
+        ::= { aiEntry 5 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.6        
+    aiIntergrationTime OBJECT-TYPE
+        SYNTAX DisplayString
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The integration time of all AI channel. The value could be '50 Hz', '60 Hz', 'Auto', 'User defined', 'High speed'.If the module has no AI, this field will be empty"
+        ::= { aiEntry 6 }    
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.7        
+    aiEnabled OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The enabled status of the AI channel"
+        ::= { aiEntry 7 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.8        
+    aiAveraged OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The averaged status of the AI channel"
+        ::= { aiEntry 8 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.9        
+    aiBurnoutEnabled OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The enabled status of the burnout detect"
+        ::= { aiEntry 9 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.10        
+    aiRangeName OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (1..32)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The name of the range. For example, '4~20 mA'"
+        ::= { aiEntry 10 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.11
+    aiRangeCode OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (4)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The setting code of the range in HEX. For example, code '0180' for the range '4~20 mA'"
+        ::= { aiEntry 11 }
+        
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.12
+    aiRangeHigh OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (1..8)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The maximum boundary of the AI range. For example, value 20 for '4~20 mA'"
+        ::= { aiEntry 12 }
+        
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.13
+    aiRangeLow OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (1..8)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The minimum boundary of the AI range. For example, value 4 for '4~20 mA'"
+        ::= { aiEntry 13 }
+        
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.14
+    aiRangeUnit OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (1..8)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The unit name of the AI range. For example, unit 'mA' for '4~20 mA'"
+        ::= { aiEntry 14 }
+        
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.15
+    aiRawValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (0..4)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The MODBUS data value in HEX. The value is from '0' to 'FFFF'. If the length of this value is zero, then check the analoginputStatus to find the error"
+        ::= { aiEntry 15 }
+
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.16
+    aiEngValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (0..8)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The engineering unit value. For example, '5.232'. If the length of this value is zero, then check the analoginputStatus to find the error"
+        ::= { aiEntry 16 }
+        
+-- 1.3.6.1.4.1.10297.101.1.3.1.1.17
+    aiStatus OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE (8)) 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "This value is an octet string of length 8 containing a 32 bit error status in hexidecimal representation"
+        ::= { aiEntry 17 }
+        
+--------------------------------------------------------------
+    AoEntry ::= SEQUENCE {
+        aoIndex             Integer32,
+        aoChannelIndex      Integer32,
+        aoModbusAddress     Integer32,
+        aoCommWdt           INTEGER,
+        aoStartupValue      OCTET STRING,
+        aoSafetyValue       OCTET STRING,
+        aoSlewrateName      OCTET STRING,
+        aoSlewrateCode      INTEGER,
+        aoRangeName         OCTET STRING,
+        aoRangeCode         OCTET STRING,
+        aoRangeHigh         OCTET STRING,
+        aoRangeLow          OCTET STRING,
+        aoRangeUnit         OCTET STRING,
+        aoRawValue          OCTET STRING,
+        aoEngValue          OCTET STRING
+    }
+    
+-- 1.3.6.1.4.1.10297.101.1.4.1
+    aoTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF AoEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "The Analog output table"
+        ::= { analogOutputObj 1 }
+        
+-- 1.3.6.1.4.1.10297.101.1.4.1.1
+    aoEntry OBJECT-TYPE
+        SYNTAX AoEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "Each entry contains AO information"  
+        INDEX { ioModuleIndex, aoIndex }
+        ::= { aoTable 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.1
+    aoIndex OBJECT-TYPE
+        SYNTAX Integer32 (1..32)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each analog output contained by the IO module"
+        ::= { aoEntry 1 }    
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.2        
+    aoChannelIndex OBJECT-TYPE
+        SYNTAX Integer32 (0..31)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The AO channel index"
+        ::= { aoEntry 2 }    
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.3
+    aoModbusAddress OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The MODBUS address of the AO channel"
+        ::= { aoEntry 3 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.4
+    aoCommWdt OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The enabled status of AO/DO communication WDT."
+        ::= { aoEntry 4 }    
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.5
+    aoStartupValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The power on startup value of the AO channel in engineering unit"
+        ::= { aoEntry 5 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.6
+    aoSafetyValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The communication failed safety output value of the AO channel in engineering unit"
+        ::= { aoEntry 6 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.7
+    aoSlewrateName OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..32))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The slew rate name of the AO channel"
+        ::= { aoEntry 7 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.8
+    aoSlewrateCode OBJECT-TYPE
+        SYNTAX INTEGER {
+                            immediateChange(1),
+                            v0p0625_mA0p0125(2),
+                            v0p0125_mA0p0250(3),
+                            v0p0250_mA0p500(4),
+                            v0p500_mA1(5),
+                            v1_mA2(6),
+                            v2_mA4(7),
+                            v4_mA8(8),
+                            v8_mA16(9),
+                            v16_mA32(10),
+                            v32_mA64(11),
+                            v64_mA128(12)
+                        }
+
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The slew rate code of the AO channel"
+        ::= { aoEntry 8 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.9
+    aoRangeName OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..32))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The name of the range. For example, '4~20 mA'"
+        ::= { aoEntry 9 }    
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.10
+    aoRangeCode OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(4))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The setting code of the range in HEX. For example, code '0180' for the range '4~20 mA'"
+        ::= { aoEntry 10 }    
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.11
+    aoRangeHigh OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The maximum boundary of the AO range. For example, value 20 for '4~20 mA'"
+        ::= { aoEntry 11 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.12
+    aoRangeLow OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The minimum boundary of the AO range. For example, value 4 for '4~20 mA'"
+        ::= { aoEntry 12 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.13    
+    aoRangeUnit OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The unit name of the AO range. For example, unit 'mA' for '4~20 mA'"
+        ::= { aoEntry 13 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.14        
+    aoRawValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..4))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The MODBUS data value in HEX. The value is from '0' to '0FFF' for normal 12 bits AO"
+        ::= { aoEntry 14 }
+
+-- 1.3.6.1.4.1.10297.101.1.4.1.1.15
+    aoEngValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The engineering unit value. For example, '5.232'"
+        ::= { aoEntry 15 }
+
+--------------------------------------------------------------                
+    DiEntry ::= SEQUENCE {
+            diIndex              Integer32, 
+            diChannelIndex       Integer32, 
+            diModbusAddress      Integer32, 
+            diInverted           INTEGER,
+            diLatched            INTEGER,
+            diFilterEnabled      INTEGER,
+            diFilterHighWidth    Integer32,
+            diFilterLowWidth     Integer32,
+            diModeName           OCTET STRING,
+            diModeCode           INTEGER,
+            diValue              OCTET STRING
+    }
+    
+-- 1.3.6.1.4.1.10297.101.1.5.1
+    diTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF DiEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "The Digital input table"
+        ::= { digitalInputObj 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1
+    diEntry OBJECT-TYPE
+        SYNTAX DiEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "Each entry contains DI information"  
+        INDEX { ioModuleIndex, diIndex }
+        ::= { diTable 1 }
+        
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.1
+    diIndex OBJECT-TYPE
+        SYNTAX Integer32 (1..64)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 1 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.2        
+    diChannelIndex OBJECT-TYPE
+        SYNTAX Integer32 (0..63)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 2 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.3
+    diModbusAddress OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 3 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.4
+    diInverted OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 4 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.5
+    diLatched OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 5 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.6
+    diFilterEnabled OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 6 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.7
+    diFilterHighWidth OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 7 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.8
+    diFilterLowWidth OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 8 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.9
+    diModeName OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..32))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 9 }    
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.10
+    diModeCode OBJECT-TYPE
+        SYNTAX INTEGER {di(1),counter(2),lowToHighLatch(3),highToLowLatch(4),frequency(5) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 10 }
+
+-- 1.3.6.1.4.1.10297.101.1.5.1.1.11
+    diValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital input contained by the IO module"
+        ::= { diEntry 11 }
+
+--------------------------------------------------------------                
+    DoEntry ::= SEQUENCE {
+            doIndex             Integer32,
+            doChannelIndex      Integer32,
+            doModbusAddress     Integer32,
+            doCommWdt           INTEGER,
+            doModeName          OCTET STRING,
+            doModeCode          INTEGER, 
+            doSafetyValue       INTEGER,
+            doDelayTime         Integer32,
+            doSignalHighWidth   Integer32,
+            doSignalLowWidth    Integer32,
+            doValue             OCTET STRING
+    }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1
+    doTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF DoEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "The Digital output table"
+        ::= { digitalOutputObj 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1
+    doEntry OBJECT-TYPE
+        SYNTAX DoEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "Each entry contains DO information"  
+        INDEX { ioModuleIndex, doIndex }
+        ::= { doTable 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.1
+    doIndex OBJECT-TYPE
+        SYNTAX Integer32 (1..64)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each digital output contained by the IO module"
+        ::= { doEntry 1 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.2
+    doChannelIndex OBJECT-TYPE
+        SYNTAX Integer32 (0..63)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The DO channel index"
+        ::= { doEntry 2 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.3
+    doModbusAddress OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The MODBUS address of the DO channel"
+        ::= { doEntry 3 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.4
+    doCommWdt OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The enabled status of AO/DO communication WDT."
+        ::= { doEntry 4 }
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.5
+    doModeName OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..32))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The DO mode name"
+        ::= { doEntry 5 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.6
+    doModeCode OBJECT-TYPE
+        SYNTAX INTEGER {do(1),pluseOutput(2),lowToHighDelay(3),highToLowDelay(4) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The DO mode code"
+        ::= { doEntry 6 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.7
+    doSafetyValue OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The communication failed safety output value of the DO channel"
+        ::= { doEntry 7 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.8
+    doDelayTime OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The DO delay time in micro-second, when the mode is 'LowToHighDelay' or 'HighToLowDelay'. The value must be times of 100 micro-second"
+        ::= { doEntry 8 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.9
+    doSignalHighWidth OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The DO signal high time in micro-second, when the mode is 'PulseOutput'. The value must be times of 100 micro-second"
+        ::= { doEntry 9 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.10
+    doSignalLowWidth OBJECT-TYPE
+        SYNTAX Integer32 
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The DO signal low time in micro-second, when the mode is 'PulseOutput'. The value must be times of 100 micro-second"
+        ::= { doEntry 10 }    
+
+-- 1.3.6.1.4.1.10297.101.1.6.1.1.11
+    doValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "If the DO channel is in 'DO', 'LowToHighDelay' or 'HighToLowDelay' mode, the value will be '0' or '1'. 
+             If the DO channel is in 'PulseOutput' mode, the value will be from '00000000' to '4294967295' in Decimal to represent the remained pulse counts to output."
+        ::= { doEntry 11 }    
+    
+--------------------------------------------------------------        
+    CounterEntry ::= SEQUENCE {
+            counterIndex              Integer32,    
+            counterChannelIndex       Integer32,
+            counterModbusAddress      Integer32,
+            counterValueRetained      INTEGER,
+            counterFilterEnabled      INTEGER,
+            counterFilterHighWidth    Integer32,
+            counterFilterLowWidth     Integer32,
+            counterModeName           OCTET STRING,
+            counterModeCode           INTEGER,
+            counterValue              OCTET STRING
+    }    
+    
+-- 1.3.6.1.4.1.10297.101.1.7.1
+    counterTable OBJECT-TYPE
+        SYNTAX SEQUENCE OF CounterEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "The Counter table"
+        ::= { counterObj 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1
+    counterEntry OBJECT-TYPE
+        SYNTAX CounterEntry
+        ACCESS not-accessible
+        STATUS current
+        DESCRIPTION
+            "Each entry contains counter information"  
+        INDEX { ioModuleIndex, counterIndex }
+        ::= { counterTable 1 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.1
+    counterIndex    OBJECT-TYPE
+        SYNTAX Integer32 (1..16)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "A unique value for each counter contained by the IO module"
+        ::= { counterEntry 1 }    
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.2
+    counterChannelIndex OBJECT-TYPE
+        SYNTAX Integer32 (0..15)
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The Counter channel index"
+        ::= { counterEntry 2 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.3
+    counterModbusAddress OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The MODBUS address of the Counter channel"
+        ::= { counterEntry 3 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.4
+    counterValueRetained OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The retaining counter value enabled status"
+        ::= { counterEntry 4 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.5
+    counterFilterEnabled OBJECT-TYPE
+        SYNTAX INTEGER { true(1), false(2) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The signal filter function enabled status"
+        ::= { counterEntry 5 }    
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.6
+    counterFilterHighWidth OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The signal high filter width in micro-second. The value must be times of 100 micro-second"
+        ::= { counterEntry 6 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.7
+    counterFilterLowWidth OBJECT-TYPE
+        SYNTAX Integer32
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The signal low filter width in micro-second. The value must be times of 100 micro-second"
+        ::= { counterEntry 7 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.8
+    counterModeName     OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..32))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The counter mode name"
+        ::= { counterEntry 8 }
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.9
+    counterModeCode OBJECT-TYPE
+        SYNTAX INTEGER {di(1),counter(2),lowToHighLatch(3),highToLowLatch(4),frequency(5) }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The Counter mode code"
+        ::= { counterEntry 9 }    
+
+-- 1.3.6.1.4.1.10297.101.1.7.1.1.10
+    counterValue OBJECT-TYPE
+        SYNTAX OCTET STRING (SIZE(1..8))
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "If the Counter channel is in 'Counter' mode, the value will be from '00000000' to '4294967295' in Decimal;
+                 If the Counter channel is in 'Frquency' mode, the value will be a integer number divide ten. Ex. '525 = 52.5'"
+        ::= { counterEntry 10 }
+        
+-- ***************************************************************************
+-- atIoDevice group                                  
+--    A collection of objects for Advantech Common Management
+--    configuration.
+-- ***************************************************************************
+
+-- 1.3.6.1.4.1.10297.101.2.1
+    ioDeviceObj         OBJECT IDENTIFIER ::= { atIoDevice 1 }
+-- 1.3.6.1.4.1.10297.101.2.10
+    Trap                         OBJECT IDENTIFIER ::= { atIoDevice 10 }
+
+    ioDeviceIoType OBJECT-TYPE
+        SYNTAX INTEGER {
+                           single(1),
+                           multiple(2)
+                       }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The IO type:
+             Single(1)  : single module
+             Multiple(2): a device with plugable modules/couplers, only this type
+                          of module can trigger IoModule trap."
+        ::= { ioDeviceObj 1 }
+        
+    trapIoModuleEvent NOTIFICATION-TYPE   
+        OBJECTS { ioModuleSlotIndex, trapHwdEvent }
+        STATUS  current
+        DESCRIPTION
+               "Refers to the IO module (ID=31) present condition has changed"
+        ::= { Trap 1 } 
+       
+    trapHwdEvent OBJECT-TYPE
+        SYNTAX INTEGER {
+                         Insert (1), 
+                         Remove (2), 
+                         All (3)
+                       }
+        ACCESS read-only
+        STATUS current
+        DESCRIPTION
+            "The events of hardware device"
+        ::= { Trap 2 }
+END

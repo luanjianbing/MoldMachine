@@ -1,0 +1,634 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Public Class Form1
+    Inherits System.Windows.Forms.Form
+
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.panelDIO = New System.Windows.Forms.Panel
+        Me.panelCh15 = New System.Windows.Forms.Panel
+        Me.txtCh15 = New System.Windows.Forms.TextBox
+        Me.btnCh15 = New System.Windows.Forms.Button
+        Me.panelCh14 = New System.Windows.Forms.Panel
+        Me.txtCh14 = New System.Windows.Forms.TextBox
+        Me.btnCh14 = New System.Windows.Forms.Button
+        Me.panelCh13 = New System.Windows.Forms.Panel
+        Me.txtCh13 = New System.Windows.Forms.TextBox
+        Me.btnCh13 = New System.Windows.Forms.Button
+        Me.panelCh12 = New System.Windows.Forms.Panel
+        Me.txtCh12 = New System.Windows.Forms.TextBox
+        Me.btnCh12 = New System.Windows.Forms.Button
+        Me.panelCh11 = New System.Windows.Forms.Panel
+        Me.txtCh11 = New System.Windows.Forms.TextBox
+        Me.btnCh11 = New System.Windows.Forms.Button
+        Me.panelCh10 = New System.Windows.Forms.Panel
+        Me.txtCh10 = New System.Windows.Forms.TextBox
+        Me.btnCh10 = New System.Windows.Forms.Button
+        Me.panelCh9 = New System.Windows.Forms.Panel
+        Me.txtCh9 = New System.Windows.Forms.TextBox
+        Me.btnCh9 = New System.Windows.Forms.Button
+        Me.panelCh8 = New System.Windows.Forms.Panel
+        Me.txtCh8 = New System.Windows.Forms.TextBox
+        Me.btnCh8 = New System.Windows.Forms.Button
+        Me.panelCh7 = New System.Windows.Forms.Panel
+        Me.txtCh7 = New System.Windows.Forms.TextBox
+        Me.btnCh7 = New System.Windows.Forms.Button
+        Me.panelCh6 = New System.Windows.Forms.Panel
+        Me.txtCh6 = New System.Windows.Forms.TextBox
+        Me.btnCh6 = New System.Windows.Forms.Button
+        Me.panelCh5 = New System.Windows.Forms.Panel
+        Me.txtCh5 = New System.Windows.Forms.TextBox
+        Me.btnCh5 = New System.Windows.Forms.Button
+        Me.panelCh4 = New System.Windows.Forms.Panel
+        Me.txtCh4 = New System.Windows.Forms.TextBox
+        Me.btnCh4 = New System.Windows.Forms.Button
+        Me.panelCh3 = New System.Windows.Forms.Panel
+        Me.txtCh3 = New System.Windows.Forms.TextBox
+        Me.btnCh3 = New System.Windows.Forms.Button
+        Me.panelCh2 = New System.Windows.Forms.Panel
+        Me.txtCh2 = New System.Windows.Forms.TextBox
+        Me.btnCh2 = New System.Windows.Forms.Button
+        Me.panelCh1 = New System.Windows.Forms.Panel
+        Me.txtCh1 = New System.Windows.Forms.TextBox
+        Me.btnCh1 = New System.Windows.Forms.Button
+        Me.panelCh0 = New System.Windows.Forms.Panel
+        Me.txtCh0 = New System.Windows.Forms.TextBox
+        Me.btnCh0 = New System.Windows.Forms.Button
+        Me.buttonStart = New System.Windows.Forms.Button
+        Me.txtReadCount = New System.Windows.Forms.TextBox
+        Me.txtModule = New System.Windows.Forms.TextBox
+        Me.label2 = New System.Windows.Forms.Label
+        Me.label1 = New System.Windows.Forms.Label
+        Me.Timer1 = New System.Windows.Forms.Timer
+        Me.panelDIO.SuspendLayout()
+        Me.panelCh15.SuspendLayout()
+        Me.panelCh14.SuspendLayout()
+        Me.panelCh13.SuspendLayout()
+        Me.panelCh12.SuspendLayout()
+        Me.panelCh11.SuspendLayout()
+        Me.panelCh10.SuspendLayout()
+        Me.panelCh9.SuspendLayout()
+        Me.panelCh8.SuspendLayout()
+        Me.panelCh7.SuspendLayout()
+        Me.panelCh6.SuspendLayout()
+        Me.panelCh5.SuspendLayout()
+        Me.panelCh4.SuspendLayout()
+        Me.panelCh3.SuspendLayout()
+        Me.panelCh2.SuspendLayout()
+        Me.panelCh1.SuspendLayout()
+        Me.panelCh0.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'panelDIO
+        '
+        Me.panelDIO.Controls.Add(Me.panelCh15)
+        Me.panelDIO.Controls.Add(Me.panelCh14)
+        Me.panelDIO.Controls.Add(Me.panelCh13)
+        Me.panelDIO.Controls.Add(Me.panelCh12)
+        Me.panelDIO.Controls.Add(Me.panelCh11)
+        Me.panelDIO.Controls.Add(Me.panelCh10)
+        Me.panelDIO.Controls.Add(Me.panelCh9)
+        Me.panelDIO.Controls.Add(Me.panelCh8)
+        Me.panelDIO.Controls.Add(Me.panelCh7)
+        Me.panelDIO.Controls.Add(Me.panelCh6)
+        Me.panelDIO.Controls.Add(Me.panelCh5)
+        Me.panelDIO.Controls.Add(Me.panelCh4)
+        Me.panelDIO.Controls.Add(Me.panelCh3)
+        Me.panelDIO.Controls.Add(Me.panelCh2)
+        Me.panelDIO.Controls.Add(Me.panelCh1)
+        Me.panelDIO.Controls.Add(Me.panelCh0)
+        Me.panelDIO.Location = New System.Drawing.Point(5, 66)
+        Me.panelDIO.Name = "panelDIO"
+        Me.panelDIO.Size = New System.Drawing.Size(345, 262)
+        '
+        'panelCh15
+        '
+        Me.panelCh15.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh15.Controls.Add(Me.txtCh15)
+        Me.panelCh15.Controls.Add(Me.btnCh15)
+        Me.panelCh15.Location = New System.Drawing.Point(175, 227)
+        Me.panelCh15.Name = "panelCh15"
+        Me.panelCh15.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh15
+        '
+        Me.txtCh15.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh15.Name = "txtCh15"
+        Me.txtCh15.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh15.TabIndex = 1
+        '
+        'btnCh15
+        '
+        Me.btnCh15.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh15.Name = "btnCh15"
+        Me.btnCh15.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh15.TabIndex = 0
+        Me.btnCh15.Text = "DIO"
+        '
+        'panelCh14
+        '
+        Me.panelCh14.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh14.Controls.Add(Me.txtCh14)
+        Me.panelCh14.Controls.Add(Me.btnCh14)
+        Me.panelCh14.Location = New System.Drawing.Point(175, 195)
+        Me.panelCh14.Name = "panelCh14"
+        Me.panelCh14.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh14
+        '
+        Me.txtCh14.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh14.Name = "txtCh14"
+        Me.txtCh14.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh14.TabIndex = 1
+        '
+        'btnCh14
+        '
+        Me.btnCh14.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh14.Name = "btnCh14"
+        Me.btnCh14.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh14.TabIndex = 0
+        Me.btnCh14.Text = "DIO"
+        '
+        'panelCh13
+        '
+        Me.panelCh13.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh13.Controls.Add(Me.txtCh13)
+        Me.panelCh13.Controls.Add(Me.btnCh13)
+        Me.panelCh13.Location = New System.Drawing.Point(175, 163)
+        Me.panelCh13.Name = "panelCh13"
+        Me.panelCh13.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh13
+        '
+        Me.txtCh13.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh13.Name = "txtCh13"
+        Me.txtCh13.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh13.TabIndex = 1
+        '
+        'btnCh13
+        '
+        Me.btnCh13.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh13.Name = "btnCh13"
+        Me.btnCh13.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh13.TabIndex = 0
+        Me.btnCh13.Text = "DIO"
+        '
+        'panelCh12
+        '
+        Me.panelCh12.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh12.Controls.Add(Me.txtCh12)
+        Me.panelCh12.Controls.Add(Me.btnCh12)
+        Me.panelCh12.Location = New System.Drawing.Point(175, 131)
+        Me.panelCh12.Name = "panelCh12"
+        Me.panelCh12.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh12
+        '
+        Me.txtCh12.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh12.Name = "txtCh12"
+        Me.txtCh12.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh12.TabIndex = 1
+        '
+        'btnCh12
+        '
+        Me.btnCh12.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh12.Name = "btnCh12"
+        Me.btnCh12.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh12.TabIndex = 0
+        Me.btnCh12.Text = "DIO"
+        '
+        'panelCh11
+        '
+        Me.panelCh11.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh11.Controls.Add(Me.txtCh11)
+        Me.panelCh11.Controls.Add(Me.btnCh11)
+        Me.panelCh11.Location = New System.Drawing.Point(175, 99)
+        Me.panelCh11.Name = "panelCh11"
+        Me.panelCh11.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh11
+        '
+        Me.txtCh11.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh11.Name = "txtCh11"
+        Me.txtCh11.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh11.TabIndex = 1
+        '
+        'btnCh11
+        '
+        Me.btnCh11.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh11.Name = "btnCh11"
+        Me.btnCh11.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh11.TabIndex = 0
+        Me.btnCh11.Text = "DIO"
+        '
+        'panelCh10
+        '
+        Me.panelCh10.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh10.Controls.Add(Me.txtCh10)
+        Me.panelCh10.Controls.Add(Me.btnCh10)
+        Me.panelCh10.Location = New System.Drawing.Point(175, 67)
+        Me.panelCh10.Name = "panelCh10"
+        Me.panelCh10.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh10
+        '
+        Me.txtCh10.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh10.Name = "txtCh10"
+        Me.txtCh10.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh10.TabIndex = 1
+        '
+        'btnCh10
+        '
+        Me.btnCh10.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh10.Name = "btnCh10"
+        Me.btnCh10.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh10.TabIndex = 0
+        Me.btnCh10.Text = "DIO"
+        '
+        'panelCh9
+        '
+        Me.panelCh9.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh9.Controls.Add(Me.txtCh9)
+        Me.panelCh9.Controls.Add(Me.btnCh9)
+        Me.panelCh9.Location = New System.Drawing.Point(175, 35)
+        Me.panelCh9.Name = "panelCh9"
+        Me.panelCh9.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh9
+        '
+        Me.txtCh9.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh9.Name = "txtCh9"
+        Me.txtCh9.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh9.TabIndex = 1
+        '
+        'btnCh9
+        '
+        Me.btnCh9.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh9.Name = "btnCh9"
+        Me.btnCh9.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh9.TabIndex = 0
+        Me.btnCh9.Text = "DIO"
+        '
+        'panelCh8
+        '
+        Me.panelCh8.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh8.Controls.Add(Me.txtCh8)
+        Me.panelCh8.Controls.Add(Me.btnCh8)
+        Me.panelCh8.Location = New System.Drawing.Point(175, 3)
+        Me.panelCh8.Name = "panelCh8"
+        Me.panelCh8.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh8
+        '
+        Me.txtCh8.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh8.Name = "txtCh8"
+        Me.txtCh8.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh8.TabIndex = 1
+        '
+        'btnCh8
+        '
+        Me.btnCh8.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh8.Name = "btnCh8"
+        Me.btnCh8.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh8.TabIndex = 0
+        Me.btnCh8.Text = "DIO"
+        '
+        'panelCh7
+        '
+        Me.panelCh7.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh7.Controls.Add(Me.txtCh7)
+        Me.panelCh7.Controls.Add(Me.btnCh7)
+        Me.panelCh7.Location = New System.Drawing.Point(3, 227)
+        Me.panelCh7.Name = "panelCh7"
+        Me.panelCh7.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh7
+        '
+        Me.txtCh7.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh7.Name = "txtCh7"
+        Me.txtCh7.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh7.TabIndex = 1
+        '
+        'btnCh7
+        '
+        Me.btnCh7.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh7.Name = "btnCh7"
+        Me.btnCh7.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh7.TabIndex = 0
+        Me.btnCh7.Text = "DIO"
+        '
+        'panelCh6
+        '
+        Me.panelCh6.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh6.Controls.Add(Me.txtCh6)
+        Me.panelCh6.Controls.Add(Me.btnCh6)
+        Me.panelCh6.Location = New System.Drawing.Point(3, 195)
+        Me.panelCh6.Name = "panelCh6"
+        Me.panelCh6.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh6
+        '
+        Me.txtCh6.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh6.Name = "txtCh6"
+        Me.txtCh6.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh6.TabIndex = 1
+        '
+        'btnCh6
+        '
+        Me.btnCh6.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh6.Name = "btnCh6"
+        Me.btnCh6.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh6.TabIndex = 0
+        Me.btnCh6.Text = "DIO"
+        '
+        'panelCh5
+        '
+        Me.panelCh5.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh5.Controls.Add(Me.txtCh5)
+        Me.panelCh5.Controls.Add(Me.btnCh5)
+        Me.panelCh5.Location = New System.Drawing.Point(3, 163)
+        Me.panelCh5.Name = "panelCh5"
+        Me.panelCh5.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh5
+        '
+        Me.txtCh5.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh5.Name = "txtCh5"
+        Me.txtCh5.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh5.TabIndex = 1
+        '
+        'btnCh5
+        '
+        Me.btnCh5.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh5.Name = "btnCh5"
+        Me.btnCh5.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh5.TabIndex = 0
+        Me.btnCh5.Text = "DIO"
+        '
+        'panelCh4
+        '
+        Me.panelCh4.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh4.Controls.Add(Me.txtCh4)
+        Me.panelCh4.Controls.Add(Me.btnCh4)
+        Me.panelCh4.Location = New System.Drawing.Point(3, 131)
+        Me.panelCh4.Name = "panelCh4"
+        Me.panelCh4.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh4
+        '
+        Me.txtCh4.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh4.Name = "txtCh4"
+        Me.txtCh4.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh4.TabIndex = 1
+        '
+        'btnCh4
+        '
+        Me.btnCh4.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh4.Name = "btnCh4"
+        Me.btnCh4.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh4.TabIndex = 0
+        Me.btnCh4.Text = "DIO"
+        '
+        'panelCh3
+        '
+        Me.panelCh3.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh3.Controls.Add(Me.txtCh3)
+        Me.panelCh3.Controls.Add(Me.btnCh3)
+        Me.panelCh3.Location = New System.Drawing.Point(3, 99)
+        Me.panelCh3.Name = "panelCh3"
+        Me.panelCh3.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh3
+        '
+        Me.txtCh3.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh3.Name = "txtCh3"
+        Me.txtCh3.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh3.TabIndex = 1
+        '
+        'btnCh3
+        '
+        Me.btnCh3.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh3.Name = "btnCh3"
+        Me.btnCh3.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh3.TabIndex = 0
+        Me.btnCh3.Text = "DIO"
+        '
+        'panelCh2
+        '
+        Me.panelCh2.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh2.Controls.Add(Me.txtCh2)
+        Me.panelCh2.Controls.Add(Me.btnCh2)
+        Me.panelCh2.Location = New System.Drawing.Point(3, 67)
+        Me.panelCh2.Name = "panelCh2"
+        Me.panelCh2.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh2
+        '
+        Me.txtCh2.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh2.Name = "txtCh2"
+        Me.txtCh2.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh2.TabIndex = 1
+        '
+        'btnCh2
+        '
+        Me.btnCh2.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh2.Name = "btnCh2"
+        Me.btnCh2.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh2.TabIndex = 0
+        Me.btnCh2.Text = "DIO"
+        '
+        'panelCh1
+        '
+        Me.panelCh1.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh1.Controls.Add(Me.txtCh1)
+        Me.panelCh1.Controls.Add(Me.btnCh1)
+        Me.panelCh1.Location = New System.Drawing.Point(3, 35)
+        Me.panelCh1.Name = "panelCh1"
+        Me.panelCh1.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh1
+        '
+        Me.txtCh1.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh1.Name = "txtCh1"
+        Me.txtCh1.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh1.TabIndex = 1
+        '
+        'btnCh1
+        '
+        Me.btnCh1.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh1.Name = "btnCh1"
+        Me.btnCh1.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh1.TabIndex = 0
+        Me.btnCh1.Text = "DIO"
+        '
+        'panelCh0
+        '
+        Me.panelCh0.BackColor = System.Drawing.Color.SkyBlue
+        Me.panelCh0.Controls.Add(Me.txtCh0)
+        Me.panelCh0.Controls.Add(Me.btnCh0)
+        Me.panelCh0.Location = New System.Drawing.Point(3, 3)
+        Me.panelCh0.Name = "panelCh0"
+        Me.panelCh0.Size = New System.Drawing.Size(166, 30)
+        '
+        'txtCh0
+        '
+        Me.txtCh0.Location = New System.Drawing.Point(84, 3)
+        Me.txtCh0.Name = "txtCh0"
+        Me.txtCh0.Size = New System.Drawing.Size(74, 23)
+        Me.txtCh0.TabIndex = 1
+        '
+        'btnCh0
+        '
+        Me.btnCh0.Location = New System.Drawing.Point(3, 3)
+        Me.btnCh0.Name = "btnCh0"
+        Me.btnCh0.Size = New System.Drawing.Size(75, 23)
+        Me.btnCh0.TabIndex = 0
+        Me.btnCh0.Text = "DIO"
+        '
+        'buttonStart
+        '
+        Me.buttonStart.Location = New System.Drawing.Point(275, 14)
+        Me.buttonStart.Name = "buttonStart"
+        Me.buttonStart.Size = New System.Drawing.Size(75, 23)
+        Me.buttonStart.TabIndex = 16
+        Me.buttonStart.Text = "Start"
+        '
+        'txtReadCount
+        '
+        Me.txtReadCount.Location = New System.Drawing.Point(99, 35)
+        Me.txtReadCount.Name = "txtReadCount"
+        Me.txtReadCount.Size = New System.Drawing.Size(100, 23)
+        Me.txtReadCount.TabIndex = 15
+        '
+        'txtModule
+        '
+        Me.txtModule.Location = New System.Drawing.Point(99, 7)
+        Me.txtModule.Name = "txtModule"
+        Me.txtModule.Size = New System.Drawing.Size(100, 23)
+        Me.txtModule.TabIndex = 14
+        '
+        'label2
+        '
+        Me.label2.Location = New System.Drawing.Point(5, 41)
+        Me.label2.Name = "label2"
+        Me.label2.Size = New System.Drawing.Size(83, 17)
+        Me.label2.Text = "Read count:"
+        '
+        'label1
+        '
+        Me.label1.Location = New System.Drawing.Point(3, 11)
+        Me.label1.Name = "label1"
+        Me.label1.Size = New System.Drawing.Size(96, 19)
+        Me.label1.Text = "Module name:"
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 500
+        '
+        'Form1
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.AutoScroll = True
+        Me.ClientSize = New System.Drawing.Size(356, 333)
+        Me.Controls.Add(Me.panelDIO)
+        Me.Controls.Add(Me.buttonStart)
+        Me.Controls.Add(Me.txtReadCount)
+        Me.Controls.Add(Me.txtModule)
+        Me.Controls.Add(Me.label2)
+        Me.Controls.Add(Me.label1)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "Form1"
+        Me.Text = "Adam40XXDIO Sample Program (VB)"
+        Me.panelDIO.ResumeLayout(False)
+        Me.panelCh15.ResumeLayout(False)
+        Me.panelCh14.ResumeLayout(False)
+        Me.panelCh13.ResumeLayout(False)
+        Me.panelCh12.ResumeLayout(False)
+        Me.panelCh11.ResumeLayout(False)
+        Me.panelCh10.ResumeLayout(False)
+        Me.panelCh9.ResumeLayout(False)
+        Me.panelCh8.ResumeLayout(False)
+        Me.panelCh7.ResumeLayout(False)
+        Me.panelCh6.ResumeLayout(False)
+        Me.panelCh5.ResumeLayout(False)
+        Me.panelCh4.ResumeLayout(False)
+        Me.panelCh3.ResumeLayout(False)
+        Me.panelCh2.ResumeLayout(False)
+        Me.panelCh1.ResumeLayout(False)
+        Me.panelCh0.ResumeLayout(False)
+        Me.ResumeLayout(False)
+
+    End Sub
+    Private WithEvents panelDIO As System.Windows.Forms.Panel
+    Private WithEvents panelCh15 As System.Windows.Forms.Panel
+    Private WithEvents txtCh15 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh15 As System.Windows.Forms.Button
+    Private WithEvents panelCh14 As System.Windows.Forms.Panel
+    Private WithEvents txtCh14 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh14 As System.Windows.Forms.Button
+    Private WithEvents panelCh13 As System.Windows.Forms.Panel
+    Private WithEvents txtCh13 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh13 As System.Windows.Forms.Button
+    Private WithEvents panelCh12 As System.Windows.Forms.Panel
+    Private WithEvents txtCh12 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh12 As System.Windows.Forms.Button
+    Private WithEvents panelCh11 As System.Windows.Forms.Panel
+    Private WithEvents txtCh11 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh11 As System.Windows.Forms.Button
+    Private WithEvents panelCh10 As System.Windows.Forms.Panel
+    Private WithEvents txtCh10 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh10 As System.Windows.Forms.Button
+    Private WithEvents panelCh9 As System.Windows.Forms.Panel
+    Private WithEvents txtCh9 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh9 As System.Windows.Forms.Button
+    Private WithEvents panelCh8 As System.Windows.Forms.Panel
+    Private WithEvents txtCh8 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh8 As System.Windows.Forms.Button
+    Private WithEvents panelCh7 As System.Windows.Forms.Panel
+    Private WithEvents txtCh7 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh7 As System.Windows.Forms.Button
+    Private WithEvents panelCh6 As System.Windows.Forms.Panel
+    Private WithEvents txtCh6 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh6 As System.Windows.Forms.Button
+    Private WithEvents panelCh5 As System.Windows.Forms.Panel
+    Private WithEvents txtCh5 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh5 As System.Windows.Forms.Button
+    Private WithEvents panelCh4 As System.Windows.Forms.Panel
+    Private WithEvents txtCh4 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh4 As System.Windows.Forms.Button
+    Private WithEvents panelCh3 As System.Windows.Forms.Panel
+    Private WithEvents txtCh3 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh3 As System.Windows.Forms.Button
+    Private WithEvents panelCh2 As System.Windows.Forms.Panel
+    Private WithEvents txtCh2 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh2 As System.Windows.Forms.Button
+    Private WithEvents panelCh1 As System.Windows.Forms.Panel
+    Private WithEvents txtCh1 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh1 As System.Windows.Forms.Button
+    Private WithEvents panelCh0 As System.Windows.Forms.Panel
+    Private WithEvents txtCh0 As System.Windows.Forms.TextBox
+    Private WithEvents btnCh0 As System.Windows.Forms.Button
+    Private WithEvents buttonStart As System.Windows.Forms.Button
+    Private WithEvents txtReadCount As System.Windows.Forms.TextBox
+    Private WithEvents txtModule As System.Windows.Forms.TextBox
+    Private WithEvents label2 As System.Windows.Forms.Label
+    Private WithEvents label1 As System.Windows.Forms.Label
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+
+End Class

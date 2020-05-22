@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\lx\desktop\moldmachine\算法测试\多尺度提升图像细节测试\test\test\main.cpp(181): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  test.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\多尺度提升图像细节测试\test\x64\Debug\test.exe
+  test.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\多尺度提升图像细节测试\test\x64\Debug\test.pdb (Partial PDB)

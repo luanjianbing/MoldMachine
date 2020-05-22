@@ -1,0 +1,135 @@
+$ EZ-EDS Version 3.3 Generated Electronic Data Sheet
+
+[File]
+        DescText = "Advantech ADAM-6118 Ethernet/IP EDS";
+        CreateDate = 12-01-2010;
+        CreateTime = 10:56:07;
+        ModDate = 12-02-2010;
+        ModTime = 10:00:45;
+        Revision = 1.1;
+        HomeURL = "http://www.advantech.com";
+
+[Device]
+        VendCode = 94;
+        VendName = "Advantech";
+        ProdType = 0;
+        ProdTypeStr = "Generic Device";
+        ProdCode = 6118;
+        MajRev = 1;
+        MinRev = 1;
+        ProdName = "Advantech - ADAM-6118";
+
+[Device Classification]
+        Class1 = EtherNetIP;
+
+[Params]
+        Param1 =
+                0,                      $ reserved, shall equal 0
+                ,,                      $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC8,                   $ Data Type
+                4,                      $ Data Size in bytes
+                "cycleTime",            $ name
+                "",                     $ units
+                "",                     $ help string
+                10000,500000,10000,     $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+
+        Param2 =
+                0,                      $ reserved, shall equal 0
+                ,,                      $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC7,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Data Size (T->O)",     $ name
+                "",                     $ units
+                "",                     $ help string
+                4,448,4,                $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param3 =
+                0,                      $ reserved, shall equal 0
+                ,,                      $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC7,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Data Size (O->T)",     $ name
+                "",                     $ units
+                "",                     $ help string
+                4,448,4,                $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+
+
+[Assembly]
+        Assem101 =
+                "IO Data (T->O)",
+                "20 04 24 65 30 03",
+                2,
+                0x0000,
+                ,,
+                32,;
+        Assem102 =
+                "IO Data (O->T)",
+                "20 04 24 66 30 03",
+                2,
+                0x0000,
+                ,,
+                32,;
+
+[Connection Manager]
+        Connection1 =
+                0x84010002,             $ 0-15    = supported transport classes
+                                        $ 16      = trigger: cyclic
+                                        $ 17      = trigger: change of state
+                                        $ 18      = trigger: application
+                                        $ 19-23   = trigger: reserved
+                                        $ 24      = transport type: listen-only
+                                        $ 25      = transport type: input-only
+                                        $ 26      = transport type: exclusive-owner
+                                        $ 27      = transport type: redundant-owner
+                                        $ 28-30   = reserved
+                                        $ 31      = Client = 0 / Server = 1
+                0x44240405,             $ 0       = O->T fixed size supported
+                                        $ 1       = O->T variable size supported
+                                        $ 2       = T->O fixed size supported
+                                        $ 3       = T->O variable size supported
+                                        $ 4-5     = O->T number of bytes per slot (obsolete)
+                                        $ 6-7     = T->O number of bytes per slot (obsolete)
+                                        $ 8-10    = O->T Real time transfer format
+                                        $ 11      = reserved
+                                        $ 12-14   = T->O Real time transfer format
+                                        $ 15      = reserved
+                                        $ 16      = O->T connection type: NULL
+                                        $ 17      = O->T connection type: MULTICAST
+                                        $ 18      = O->T connection type: POINT2POINT
+                                        $ 19      = O->T connection type: reserved
+                                        $ 20      = T->O connection type: NULL
+                                        $ 21      = T->O connection type: MULTICAST
+                                        $ 22      = T->O connection type: POINT2POINT
+                                        $ 23      = T->O connection type: reserved
+                                        $ 24      = O->T priority: LOW
+                                        $ 25      = O->T priority: HIGH
+                                        $ 26      = O->T priority: SCHEDULED
+                                        $ 27      = O->T priority: reserved
+                                        $ 28      = T->O priority: LOW
+                                        $ 29      = T->O priority: HIGH
+                                        $ 30      = T->O priority: SCHEDULED
+                                        $ 31      = T->O priority: reserved
+                Param1,Param3,Assem102, $ O->T RPI, size, format
+                Param1,Param2,Assem101, $ T->O RPI, size, format
+                ,,                      $ config #1 size, format
+                ,,                      $ config #2 size, format
+                "APAXConn1",            $ Connection Name
+                "",                     $ help string
+                "20 04 24 64 2C 66 2C 65";    $ Path
+
+[Capacity]
+        MaxCIPConnections = 8;
+        TSpec1 = TxRx, 4, 100;
+        TSpec2 = TxRx, 500, 100;
+

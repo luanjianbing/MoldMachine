@@ -1,0 +1,165 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{06EBBDE5-5C8F-4D02-9E45-A4B45A73935A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>APAX_Controller_WinCE_Sample</RootNamespace>
+    <AssemblyName>APAX-Controller-WinCE-Sample</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <DeployDirSuffix>APAX_Controller_WinCE_Sample</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Advantech.Adam, Version=2.2.10.0, Culture=neutral, PublicKeyToken=6929fc9ed10b8f2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Advantech.Common, Version=2.2.10.0, Culture=neutral, PublicKeyToken=6929fc9ed10b8f2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APAX-Controller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="APAX-Controller.Designer.cs">
+      <DependentUpon>APAX-Controller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="APAX-Controller.resx">
+      <DependentUpon>APAX-Controller.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\APAX-5013\APAX-5013.csproj">
+      <Project>{B36FC5C3-A800-4B13-A7B4-7A85B5A241C4}</Project>
+      <Name>APAX-5013</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017H\APAX-5017H.csproj">
+      <Project>{876E7498-3CF0-4DDC-80F3-5C528BE439D4}</Project>
+      <Name>APAX-5017H</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017PE\APAX-5017PE.csproj">
+      <Project>{01D8F0B9-DE20-47A1-873E-CDF0F6DFDF9B}</Project>
+      <Name>APAX-5017PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017\APAX-5017.csproj">
+      <Project>{F6B60611-98EE-472E-A871-8F59620EF7A6}</Project>
+      <Name>APAX-5017</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5018\APAX-5018.csproj">
+      <Project>{24AA89CA-DBF4-496E-989F-39FFF51D6488}</Project>
+      <Name>APAX-5018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5028\APAX-5028.csproj">
+      <Project>{497315CD-91CD-4C43-AB76-79285A622012}</Project>
+      <Name>APAX-5028</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040PE\APAX-5040PE.csproj">
+      <Project>{ABCB4D16-5C44-43CA-8D62-A634707CF1CC}</Project>
+      <Name>APAX-5040PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040\APAX-5040.csproj">
+      <Project>{53D720E7-36D3-4BDF-9EAA-D47D9EC012CF}</Project>
+      <Name>APAX-5040</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5045\APAX-5045.csproj">
+      <Project>{306EA339-97E7-4E57-A504-A3AB0F339F94}</Project>
+      <Name>APAX-5045</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046SO\APAX-5046SO.csproj">
+      <Project>{36A5D736-5E02-4657-AD1B-5F0CE51C3FD7}</Project>
+      <Name>APAX-5046SO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046\APAX-5046.csproj">
+      <Project>{F19D3A4E-56AF-4647-AAD7-3D7E7B2E00EE}</Project>
+      <Name>APAX-5046</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060PE\APAX-5060PE.csproj">
+      <Project>{44A5BB05-C4E4-4231-BA09-486660D706E7}</Project>
+      <Name>APAX-5060PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060\APAX-5060.csproj">
+      <Project>{27C5CCE5-C1CC-43A9-97D7-0FD8CEF8D4C0}</Project>
+      <Name>APAX-5060</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5080\APAX-5080.csproj">
+      <Project>{E042BDA9-7C8B-497F-A80D-4473E249B423}</Project>
+      <Name>APAX-5080</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5082\APAX-5082.csproj">
+      <Project>{A98960C5-B6DE-4767-86CA-0852DE981D5C}</Project>
+      <Name>APAX-5082</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apax_IO_Module_Library\APAX_IO_Module_Library.csproj">
+      <Project>{D4191762-E8FB-4E7F-9FF1-E90A32ED04F6}</Project>
+      <Name>APAX_IO_Module_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

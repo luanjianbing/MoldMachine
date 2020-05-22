@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IOService>IOService
+    <input_name_1>开模完成</input_name_1>
+    <input_name_2>顶针退回</input_name_2>
+    <input_name_3>安全门关</input_name_3>
+    <input_name_4>/</input_name_4>
+    <input_name_5>/</input_name_5>
+    <input_name_6>/</input_name_6>
+    <output_name_1>允许顶出</output_name_1>
+    <output_name_2>允许关模</output_name_2>
+    <output_name_3>/</output_name_3>
+    <output_name_4>/</output_name_4>
+    <output_name_5>绿灯/正常运行</output_name_5>
+    <output_name_6>红灯/警报</output_name_6>
+    <input_status_1>0</input_status_1>
+    <input_status_2>0</input_status_2>
+    <input_status_3>0</input_status_3>
+    <input_status_4>0</input_status_4>
+    <input_status_5>0</input_status_5>
+    <input_status_6>0</input_status_6>
+    <output_status_1>0</output_status_1>
+    <output_status_2>0</output_status_2>
+    <output_status_3>0</output_status_3>
+    <output_status_4>0</output_status_4>
+    <output_status_5>0</output_status_5>
+    <output_status_6>0</output_status_6>
+    <localIP>192.168.1.5</localIP>
+    <port>502</port>
+    <serverIP>192.168.1.111</serverIP>
+</IOService>

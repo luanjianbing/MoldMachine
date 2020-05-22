@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>ADVANTECH</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script src="jquery.js"></script>
+    </head>
+	<script>
+		//var LOG_URL = "/logs/access.log";
+		var LOG_URL = "/wise.log";  //WISE Log file URL
+		var pauseLog = false;
+		var logFileSize = 0;
+		var pollingInterval = 1000; //1 sec
+		var fileDisplaySize = 30 * 1024; // Size of Log file content displayed
+		var logContent = "";
+	</script>
+  <body onload="initPage()">
+  	<div class="container" style="text-align: center">
+      <header class="page-header" style="position: relative; text-align: left;">
+          <span style="margin: 0 0 0 0; margin-left:35px; font-size:2.0em; font-weight: bold; color: #FFF; display: inline-block">WISE-4000 Series Log Viewer</span>
+          <br/>
+          <span style="margin: 0 0 0 0; margin-left:35px;font-size:1.2em; font-weight: bold; color: #FFF; display: inline-block">IoT Wireless I/O Module</span>
+          <span style=" top: 0; right: 0; position: absolute; margin:0 1% 0 0; margin-right:20px; color:#FFF ">Version 1.0.0</span>
+      </header>
+      <div class="row">
+          <div class="panel-body col-sm-12" style="text-align: left;">
+              <table border="0" align="left" cellpadding="0" cellspacing="0">
+                	<tr>
+                	    <td  colspan="3" valign="top">
+                    	  	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td valign="center">
+                                    <button id='introductionBtn' class="btn btn-lg btn-default btn3d" style="margin-top: -15px;padding:4px 110px 2px 5px; font-size: 0.8em; ">Introduction</button>
+                                </td>
+                                <td valign="top" rowspan="2">
+                                       <div id="BulletinBoard" style="padding:5px 5px 0px 25px; width:780px;" align="justify">                                       
+                                       </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="center">
+                                    <button id='logDescBtn' class="btn btn-lg btn-default btn3d"  style="margin-top: -15px;padding:4px 110px 2px 5px; font-size: 0.8em; " >Log Description</button>
+                                </td>
+                            </tr>
+                          </table>
+                      </td>
+                  </tr>            	
+              </table>
+          </div>
+        <div class="panel-body col-sm-12" style="text-align: center;">
+            <div style=" font-size:1.2em; font-weight: bold; color: #0066FF; display: inline">WISE Log URL: <script>document.write(LOG_URL)</script></div><br/>
+			<button class="btn btn-danger btn3d" id="BtnToggle" onclick="onClickToggle()" style="border-radius: 50%; border: 5px #FFF solid; width: 98px; height: 80px; padding: 8px 11px; line-height: 1.33; font-weight: bold; font-size: 17px; margin: 5% 2% 0 0">STOP</button>
+		</div>  
+		<div class="panel-body col-sm-12" style="text-align: left;">
+			<textarea class="form-control" id= "logViewer" rows="25">Loading...Please Wait...</textarea>
+        </div>
+        <span id='logDescription' style="display:none;">            
+            <table border='1' style="width:800px;background-color:#FBE088;border-color:#F38E34;" class="panel-info">
+                <tr>
+                    <td colspan="3"><button class="btn btn-primary" id='closeDesc' style="margin-top:0px;margin-bottom:10px">Close</button></td>
+                </tr>
+                <tr style="background-color:#F38E34;">
+                    <td style="width:20%">Field</td><td style="width:20%">Data Type</td><td align='left' style="width:60%">Description</td>
+                </tr>
+                <tr>
+                    <td>PE</td><td>Event Number</td>
+                    <td>
+                        <table border='1'>
+                            <tr><td>Value</td><td>Event Name</td></tr>
+                            <tr><td>1</td><td>DI Event</td></tr>
+                            <tr><td>2</td><td>DO Event</td></tr>
+                            <tr><td>4</td><td>AI Event</td></tr>
+                            <tr><td>8</td><td>AO Event</td></tr>
+                            <tr><td>16</td><td>WDT Event</td></tr>
+                            <tr><td>128</td><td>Periodic Event</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>TIM</td><td>Timestamp String</td>
+                    <td>                                               
+                       <table border='1'>
+                            <tr><td>Coordinated Universal Time (UTC)</td><td>Ex. “1415757750” corresponds to November 12, 2014, 2:02:30 am, Standard Time.</td></tr>
+                            <tr><td>Local Date/Time according GMT time zone (ISO 8601)</td><td>Ex. “1994-11-05T08:15:30-05:00” corresponds to November 5, 1994, 8:15:30 am, US Eastern Standard Time.</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>UID</td><td>String</td><td>Universally Unique Identifier(UUID)</td>
+                </tr>
+                <tr>
+                    <td>MAC</td><td>String</td><td>MAC Address</td>
+                </tr>
+                <tr>
+                    <td>Record</td><td>Number Array</td>
+                    <td>
+                        Structure of Array: <br/>[Slot-index, Channel-index, I/O-type-index, I/O-value]
+                        <table border='1'>
+                            <tr><td>Value</td><td>IO Type</td></tr>
+                            <tr><td>0</td><td>Invalid</td></tr>
+                            <tr><td>1</td><td>DI Logic Status</td></tr>
+                            <tr><td>2</td><td>DI Counter value</td></tr>
+                            <tr><td>3</td><td>DI Frequency value</td></tr>
+                            <tr><td>4</td><td>DO Logic Status</td></tr>
+                            <tr><td>5</td><td>DO Absolute Pulse Output value</td></tr>
+                            <tr><td>6</td><td>DO Incremental Pulse Output Value</td></tr>
+                            <tr><td>7</td><td>AI value</td></tr>
+                            <tr><td>8</td><td>Historical Maximum AI value</td></tr>
+                            <tr><td>9</td><td>Historical Minimum AI value</td></tr>
+                            <tr><td>10</td><td>AI value after scaling</td></tr>
+                            <tr><td>11</td><td>AI status flags</td></tr>
+                            <tr><td>12</td><td>AI engineering value</td></tr>
+                            <tr><td>13</td><td>Historical Maximum AI engineering value</td></tr>
+                            <tr><td>14</td><td>Historical Minimum AI engineering value</td></tr>
+                            <tr><td>15</td><td>AO value</td></tr>
+                            <tr><td>16</td><td>AO value after scaling</td></tr>
+                            <tr><td>17</td><td>AO status flags</td></tr>
+                            <tr><td>18</td><td>AO engineering value</td></tr>
+                            <tr><td>19</td><td>AI physical value</td></tr>
+                        </table>
+                        Note: When the value of I/O-type-index is 12, 13, 14 or 18, the value of I/O-value is 1/1000 scale.
+                    </td>
+                </tr>
+            </table>
+        </span>
+      </div>
+      <br/>
+      <footer>
+      	<span style="color:#FFF ">Copyright &copy;2015 by <a target="_blank" href="http://www.advantech.com/" style="color:#00BBFF">Advantech Corp</a></span>      	
+      </footer>
+    </div>
+  </body>
+</html>
+
+<script>
+
+    function initPage(){
+        $("#BulletinBoard").trigger('click');
+        getLogFile();
+    }
+
+    $("#BulletinBoard").click(function() {
+        $('#BulletinBoard').html('The WISE-4000 series provide a cost-effective wireless solution for cloud applications. By supporting direct cloud access, new web services and datalogs, the WISE-4000 series can seamlessly connect to the cloud for a wireless solution');
+    })
+    
+    $("#logDescBtn").mouseover(function() {
+        if($('#logDescription').css('display') == 'none') {
+            pos   = $(this).offset();
+            width = $(this).width();
+            //show the menu directly over the placeholder
+            $('#logDescription').css({ "position": "absolute", "z-index": "1030","left": (pos.left + width+100) + "px", "top":pos.top + "px" }).show();
+        }
+    })
+    
+    $("#introductionBtn").mouseover(function() {
+        if($('#logDescription').css('display') != 'none') {
+            $('#logDescription').hide();
+        }
+    })
+    
+    $("#closeDesc").mouseover(function() {
+        $('#logDescription').hide();
+    })
+    
+	function onClickToggle(){
+		if(pauseLog){
+			pauseLog = false;
+			getLogFile();
+			$("#BtnToggle").text("Stop");
+			$("#BtnToggle").attr("class", "btn btn-danger btn3d");
+		}else{
+			pauseLog = true;
+			$("#BtnToggle").text("Start");
+			$("#BtnToggle").attr("class", "btn btn-success btn3d");
+		}
+	}
+	
+	function displayLog() {
+		if(pauseLog) return;
+
+		var tmp = logContent;
+		//Set new data on top
+		var reverseContent = tmp.split(/\n/g);
+		reverseContent.reverse();
+		if(reverseContent[0] == "") 
+			reverseContent.shift();
+
+		tmp = reverseContent.join("\n");
+
+		$("#logViewer").html(tmp);
+		$("#logViewer").scrollTop();
+	}
+	
+	function getLogFile() {
+		if(pauseLog) return;
+
+		var range;
+		var initialFlag;
+		if(logFileSize === 0) {
+			// Get last fileDisplaySize content
+			range = "-" + fileDisplaySize.toString();
+			initialFlag = true;
+		} else {
+			// Get the (logFileSize - 1) content
+			range = (logFileSize - 1).toString() + "-";
+			initialFlag = false;
+		}
+
+		//use Ajax to periodically get log content
+		$.ajax(LOG_URL, {
+			method : "GET",
+			dataType: "text",
+			cache: false,
+			headers: {Range: "bytes=" + range},
+			success: function (data, s, xhr) {
+				var contentLength;
+				var newContent = false;
+
+				if(xhr.status === 206) {
+					var contentRange = xhr.getResponseHeader("Content-Range"); //Content-Range string ex: "bytes 30108423-30139142/30139143"
+					logFileSize = parseInt(contentRange.split("/")[1]);
+					contentLength = parseInt(xhr.getResponseHeader("Content-Length"));
+				} else if(xhr.status === 200) {
+					contentLength = parseInt(xhr.getResponseHeader("Content-Length"));
+					logFileSize = contentLength;
+				} else {
+					alert("AJAX Error, Status code: " + xhr.status);
+				}
+
+				if(initialFlag) {
+					//Remove leading part-line if not the whole file
+					if(contentLength < logFileSize) {
+						var start = data.indexOf("\n");
+						logContent = data.substring(start + 1);
+					} else {
+						logContent = data;
+					}
+
+					newContent = true;
+				} else {
+					//Remove the first byte (see above)
+					logContent += data.substring(1);
+
+					if(logContent.length > fileDisplaySize) {
+						var start = logContent.indexOf("\n", logContent.length - fileDisplaySize);
+						logContent = logContent.substring(start + 1);
+					}
+
+					if(data.length > 1)
+						newContent = true;
+				}
+
+				if(newContent)
+					displayLog();
+					
+				setTimeout(getLogFile, pollingInterval);
+			},
+			error: function (xhr, s, t) {
+				if(xhr.status === 416) {
+					// 416: Requested range not satisfiable
+					logFileSize = 0;
+					logContent = "";
+					displayLog();
+					setTimeout(getLogFile, pollingInterval);
+				} else {
+					alert("AJAX Error, Status code: " + xhr.status);
+				}
+			}
+		});
+	}
+</script>

@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{44892F5B-26C5-48FA-8861-76DFFD615F08}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>APAX_Coupler_Win32_Example.My.MyApplication</StartupObject>
+    <RootNamespace>APAX_Coupler_Win32_Example</RootNamespace>
+    <AssemblyName>APAX-Coupler-Win32-Example</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>APAX-Coupler-Win32-Example.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>APAX-Coupler-Win32-Example.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Advantech.Adam, Version=8.2.10.0, Culture=neutral, PublicKeyToken=c24039c75946be9c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Advantech.Common, Version=8.2.10.0, Culture=neutral, PublicKeyToken=c24039c75946be9c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APAX-Coupler.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="APAX-Coupler.Designer.vb">
+      <DependentUpon>APAX-Coupler.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="APAX-Coupler.resx">
+      <DependentUpon>APAX-Coupler.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\APAX-5013\APAX-5013.vbproj">
+      <Project>{1313D9C8-DCC5-493F-8268-AC53EA726EB5}</Project>
+      <Name>APAX-5013</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017H\APAX-5017H.vbproj">
+      <Project>{0E8BB19F-1CEE-4F72-9EF4-A2266EAF8285}</Project>
+      <Name>APAX-5017H</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017PE\APAX-5017PE.vbproj">
+      <Project>{AF9B2357-0A09-4544-AEF0-2DABEB257411}</Project>
+      <Name>APAX-5017PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017\APAX-5017.vbproj">
+      <Project>{44834194-F9F1-46C8-B70C-2FAC81FECD8F}</Project>
+      <Name>APAX-5017</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5018\APAX-5018.vbproj">
+      <Project>{A5678032-789C-420C-84E6-57FEAFBA2524}</Project>
+      <Name>APAX-5018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5028\APAX-5028.vbproj">
+      <Project>{8E5715E2-BDFD-4CCD-BC5F-55D59975E0B3}</Project>
+      <Name>APAX-5028</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040PE\APAX-5040PE.vbproj">
+      <Project>{E291D481-92DB-42F9-936C-A5C4D1D2B049}</Project>
+      <Name>APAX-5040PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040\APAX-5040.vbproj">
+      <Project>{E8F98744-6E78-4EEE-8542-85B2C0523EDC}</Project>
+      <Name>APAX-5040</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5045\APAX-5045.vbproj">
+      <Project>{96BEB39E-8CD9-4B75-9899-561A85661DBA}</Project>
+      <Name>APAX-5045</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046SO\APAX-5046SO.vbproj">
+      <Project>{B1EC7A24-1747-4C81-95D6-3A23936B9F84}</Project>
+      <Name>APAX-5046SO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046\APAX-5046.vbproj">
+      <Project>{BBE9D280-5259-464E-9E11-86BFB03CB63D}</Project>
+      <Name>APAX-5046</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060PE\APAX-5060PE.vbproj">
+      <Project>{1E9A805B-5DDF-424F-8E67-DC239830DF6B}</Project>
+      <Name>APAX-5060PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060\APAX-5060.vbproj">
+      <Project>{2BB1F87F-26B1-4792-ADD2-B0F7A83913F0}</Project>
+      <Name>APAX-5060</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5080\APAX-5080.vbproj">
+      <Project>{D96C8063-46EB-4971-A68B-6CE42F173FA9}</Project>
+      <Name>APAX-5080</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5082\APAX-5082.vbproj">
+      <Project>{D7A3550B-698A-43E8-87AE-A4D70B3D6292}</Project>
+      <Name>APAX-5082</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5090\APAX-5090.vbproj">
+      <Project>{019F92CD-E736-4386-A663-0411A59B4A0C}</Project>
+      <Name>APAX-5090</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apax_IO_Module_Library\APAX_IO_Module_Library.vbproj">
+      <Project>{2B10E3B1-5DFA-4520-9F24-8AEEC4776E4D}</Project>
+      <Name>APAX_IO_Module_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

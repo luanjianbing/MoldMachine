@@ -1,0 +1,44 @@
+//======================================================================================================
+// Advantech ADAM.NET CD Release Notes
+// Date: 6/22/2017
+// P/N: 2063000372
+// Ver: 2.60
+//
+//======================================================================================================
+Information: 
+	This CD ROM is especially designed for ADAM Product Series, including ADAM-6000,ADAM-6100,
+        ADAM-6200 series. 
+        Users can find the utility setup programs, documents 
+        and Manuals for individual product lines. The content has been listed as follows
+
+//======================================================================================================
+Software: 
+        1.Include Microsoft .NET framework Ver 2.0
+        2.Build Adam.NET Class Library VS2008 Ver 8.02.0012
+        3.Build AdamApax.NET Utility(Win32) Ver 2.05.11
+
+
+//======================================================================================================
+Folder:
+	1.Adobe Acrobat            : Application for PDF File
+	2.AdvDotNetClassLib        : Advantech Adam.NET Class Library for VS2008
+	3.AdvDotNetUtility         : Advantech Adam.NET Utility     
+	4.Microsoft .NET Framework : include Microsoft .NET Framework Ver 2.0	
+	5.ADAM-6200                : Manual, JavaScript Library and HTML files for ADAM-6200 Series Module
+        6.ADAM-6100                : Manual, SOP, EDS and GSD files for ADAM-6100 Series Module
+        7.ADAM-6000                : Manual, JavaScript Library,SNMP MIB file and HTML files for ADAM-6000 
+                                     Series Module
+        
+
+//=======================================================================================================
+Manual:
+	
+	1.ADAM-6022_Manual.pdf
+	2.ADAM-6000 Series_Manual_Ed8
+	3.ADAM-6100EI_Manual_Ed1.pdf
+	4.ADAM-6100PN_Manual_Ed1.pdf
+	5.UM-ADAM-6200-Ed.2-2-EN.pdf
+	6.Simplified Chinese Version of QuickStart V1.0-2007-10-25
+     
+
+//======================================================================================================

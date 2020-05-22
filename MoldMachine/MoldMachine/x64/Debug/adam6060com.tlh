@@ -1,0 +1,93 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.00.24215.1 (ad8598c0).
+//
+// c:\users\lx\desktop\moldmachine\moldmachine\moldmachine\x64\debug\adam6060com.tlh
+//
+// C++ source equivalent of type library ./Adam6060/Adam6060Com.tlb
+// compiler-generated file created 05/14/20 at 16:05:22 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace Adam6060Com {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("82157987-5f94-4b8f-90c6-7562425ceb54"))
+/* LIBID */ __Adam6060Com;
+struct __declspec(uuid("88de7087-8b80-4978-b2f4-c0937984a078"))
+/* dual interface */ DoAdam6060;
+struct /* coclass */ Adam6060Operate;
+struct __declspec(uuid("c9d5c5a6-2080-39ad-86fa-0e7b012bdbcc"))
+/* dual interface */ _Adam6060Operate;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(DoAdam6060, __uuidof(DoAdam6060));
+_COM_SMARTPTR_TYPEDEF(_Adam6060Operate, __uuidof(_Adam6060Operate));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("88de7087-8b80-4978-b2f4-c0937984a078"))
+DoAdam6060 : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    VARIANT_BOOL Adam6060Init (
+        _bstr_t m_IP,
+        long m_Port );
+    HRESULT Adam6060SingleSetOut (
+        long m_out,
+        VARIANT_BOOL status );
+    VARIANT_BOOL Adam6060ReadStatus (
+        long m_in );
+    HRESULT Adam6060DisConnect ( );
+    long Adam6060ReadAllStatus ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_Adam6060Init (
+        /*[in]*/ BSTR m_IP,
+        /*[in]*/ long m_Port,
+        /*[out,retval]*/ VARIANT_BOOL * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_Adam6060SingleSetOut (
+        /*[in]*/ long m_out,
+        /*[in]*/ VARIANT_BOOL status ) = 0;
+      virtual HRESULT __stdcall raw_Adam6060ReadStatus (
+        /*[in]*/ long m_in,
+        /*[out,retval]*/ VARIANT_BOOL * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_Adam6060DisConnect ( ) = 0;
+      virtual HRESULT __stdcall raw_Adam6060ReadAllStatus (
+        /*[out,retval]*/ long * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("1aa8315b-c1a3-45c1-a9e0-9d2cc43763a1"))
+Adam6060Operate;
+    // [ default ] interface _Adam6060Operate
+    // interface _Object
+    // interface DoAdam6060
+
+struct __declspec(uuid("c9d5c5a6-2080-39ad-86fa-0e7b012bdbcc"))
+_Adam6060Operate : IDispatch
+{};
+
+//
+// Wrapper method implementations
+//
+
+#include "c:\users\lx\desktop\moldmachine\moldmachine\moldmachine\x64\debug\adam6060com.tli"
+
+} // namespace Adam6060Com
+
+#pragma pack(pop)

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adam5024", "Adam5024.vcproj", "{897CA6FA-C233-4C80-8694-C3AD717E88D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|STANDARDSDK_500 (x86) = Debug|STANDARDSDK_500 (x86)
+		Release|STANDARDSDK_500 (x86) = Release|STANDARDSDK_500 (x86)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{897CA6FA-C233-4C80-8694-C3AD717E88D7}.Debug|STANDARDSDK_500 (x86).ActiveCfg = Debug|STANDARDSDK_500 (x86)
+		{897CA6FA-C233-4C80-8694-C3AD717E88D7}.Debug|STANDARDSDK_500 (x86).Build.0 = Debug|STANDARDSDK_500 (x86)
+		{897CA6FA-C233-4C80-8694-C3AD717E88D7}.Debug|STANDARDSDK_500 (x86).Deploy.0 = Debug|STANDARDSDK_500 (x86)
+		{897CA6FA-C233-4C80-8694-C3AD717E88D7}.Release|STANDARDSDK_500 (x86).ActiveCfg = Release|STANDARDSDK_500 (x86)
+		{897CA6FA-C233-4C80-8694-C3AD717E88D7}.Release|STANDARDSDK_500 (x86).Build.0 = Release|STANDARDSDK_500 (x86)
+		{897CA6FA-C233-4C80-8694-C3AD717E88D7}.Release|STANDARDSDK_500 (x86).Deploy.0 = Release|STANDARDSDK_500 (x86)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

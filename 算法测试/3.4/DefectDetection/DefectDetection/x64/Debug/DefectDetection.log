@@ -1,0 +1,12 @@
+﻿  main.cpp
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(38): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(255): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“unsigned __int64”
+  c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(255): note: 请考虑在格式字符串中使用“%zd”
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(319): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(387): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“unsigned __int64”
+  c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(387): note: 请考虑在格式字符串中使用“%zd”
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(447): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(448): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\lx\desktop\moldmachine\算法测试\3.4\defectdetection\defectdetection\main.cpp(449): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  DefectDetection.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\3.4\DefectDetection\x64\Debug\DefectDetection.exe
+  DefectDetection.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\3.4\DefectDetection\x64\Debug\DefectDetection.pdb (Partial PDB)

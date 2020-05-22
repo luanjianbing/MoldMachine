@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\lx\desktop\moldmachine\算法测试\裂纹检测测试\crackdetection\crackdetection\main.cpp(37): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  CrackDetection.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\裂纹检测测试\CrackDetection\x64\Debug\CrackDetection.exe
+  CrackDetection.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\裂纹检测测试\CrackDetection\x64\Debug\CrackDetection.pdb (Partial PDB)

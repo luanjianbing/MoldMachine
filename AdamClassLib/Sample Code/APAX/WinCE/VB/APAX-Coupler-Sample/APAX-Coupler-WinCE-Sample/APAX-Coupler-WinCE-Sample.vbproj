@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F7BD9341-BD65-4C0C-B9DF-8EA02F283EBE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>APAX_Coupler_WinCE_Example.Form_APAX_Coupler</StartupObject>
+    <RootNamespace>APAX_Coupler_WinCE_Example</RootNamespace>
+    <AssemblyName>APAX-Coupler-WinCE-Example</AssemblyName>
+    <ProjectTypeGuids>{68B1623D-7FB9-47D8-8664-7ECEA3297D4F};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <MyType>WindowsForms</MyType>
+    <DeployDirSuffix>APAX_Coupler_WinCE_Example</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>$(PlatformFamilyName)=TRUE</DefineConstants>
+    <DocumentationFile>APAX-Coupler-WinCE-Example.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <FileAlignment>512</FileAlignment>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>$(PlatformFamilyName)=TRUE</DefineConstants>
+    <DocumentationFile>APAX-Coupler-WinCE-Example.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <FileAlignment>512</FileAlignment>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Advantech.Adam, Version=2.2.10.0, Culture=neutral, PublicKeyToken=6929fc9ed10b8f2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Advantech.Common, Version=2.2.10.0, Culture=neutral, PublicKeyToken=6929fc9ed10b8f2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APAX-Coupler.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="APAX-Coupler.Designer.vb">
+      <DependentUpon>APAX-Coupler.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="APAX-Coupler.resx">
+      <DependentUpon>APAX-Coupler.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\APAX-5013\APAX-5013.vbproj">
+      <Project>{48019F56-7852-444C-B982-6BCB1AE7D493}</Project>
+      <Name>APAX-5013</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017H\APAX-5017H.vbproj">
+      <Project>{B86867EC-59D6-4B15-9B86-6EF12742A595}</Project>
+      <Name>APAX-5017H</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017PE\APAX-5017PE.vbproj">
+      <Project>{54557017-B48A-4E03-8BF7-AAAFA8CD3708}</Project>
+      <Name>APAX-5017PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5017\APAX-5017.vbproj">
+      <Project>{AAC1942B-CC36-4B95-86EB-2A2D36966759}</Project>
+      <Name>APAX-5017</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5018\APAX-5018.vbproj">
+      <Project>{BA546051-7D59-4C77-A1BF-8814CF575BF5}</Project>
+      <Name>APAX-5018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5028\APAX-5028.vbproj">
+      <Project>{A167C7C0-5968-4E1C-9245-DEBD1CA32687}</Project>
+      <Name>APAX-5028</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040PE\APAX-5040PE.vbproj">
+      <Project>{65D4635C-2E25-460B-B2A0-4E6F0716BBEA}</Project>
+      <Name>APAX-5040PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5040\APAX-5040.vbproj">
+      <Project>{C9F75663-7BAE-4AEF-9D8B-31D9F0E26FEE}</Project>
+      <Name>APAX-5040</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5045\APAX-5045.vbproj">
+      <Project>{D9312BA9-14BA-44DD-B852-DD620DDBD09E}</Project>
+      <Name>APAX-5045</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046SO\APAX-5046SO.vbproj">
+      <Project>{BD51DE36-F6FC-4DFE-B809-EF65B6B59686}</Project>
+      <Name>APAX-5046SO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5046\APAX-5046.vbproj">
+      <Project>{CCB802BF-DDA7-4591-A5C0-8F96E790D61A}</Project>
+      <Name>APAX-5046</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060PE\APAX-5060PE.vbproj">
+      <Project>{7776DCC2-2101-4640-86DE-BB34FF68A8C6}</Project>
+      <Name>APAX-5060PE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5060\APAX-5060.vbproj">
+      <Project>{C8BE30EE-8761-4C80-A12A-29816A152838}</Project>
+      <Name>APAX-5060</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5080\APAX-5080.vbproj">
+      <Project>{64D8E7FD-F610-44D9-A372-4AD633B6EF72}</Project>
+      <Name>APAX-5080</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5082\APAX-5082.vbproj">
+      <Project>{246A9C09-3BB5-4334-AFFC-146D41500A01}</Project>
+      <Name>APAX-5082</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\APAX-5090\APAX-5090.vbproj">
+      <Project>{BF38B169-9285-4388-AF89-BE50074C0F9C}</Project>
+      <Name>APAX-5090</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apax_IO_Module_Library\APAX_IO_Module_Library.vbproj">
+      <Project>{F63E5C24-63C4-4C9F-BC30-A163410207BB}</Project>
+      <Name>APAX_IO_Module_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.VisualBasic.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{F184B08F-C81C-45F6-A57F-5ABD9991F28F}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

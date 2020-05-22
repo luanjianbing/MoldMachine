@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
+    <Keyword>QtVS_v301</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+    <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>D:\Opencv\opencv\build\include;D:\Opencv\opencv\build\include\opencv2;D:\Opencv\opencv\build\include\opencv;../MoldMachine/x64/Debug/uic/;E:\Mysql\include;E:\Qt\5.12.3\msvc2015_64\include\QtCore;E:\Qt\5.12.3\msvc2015_64\include;E:\Qt\5.12.3\msvc2015_64\include\QtGui;E:\Qt\5.12.3\msvc2015_64\include\QtWidgets;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Opencv\opencv\build\x64\vc14\lib;E:\Mysql\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2015_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>msvc2015_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_world348d.lib;libmysql.lib;mysqlclient.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat />
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Adam6060.cpp" />
+    <ClCompile Include="CameraDrive.cpp" />
+    <ClCompile Include="CounterSetting.cpp" />
+    <ClCompile Include="CurRoiDisplay.cpp" />
+    <ClCompile Include="CycleSetting.cpp" />
+    <ClCompile Include="CycleStepSetting.cpp" />
+    <ClCompile Include="DelaySetting.cpp" />
+    <ClCompile Include="ImageProcessing.cpp" />
+    <ClCompile Include="ImageSetting.cpp" />
+    <ClCompile Include="IOService.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoldMachine.cpp" />
+    <ClCompile Include="MoldObject.cpp" />
+    <ClCompile Include="MysqlSetting.cpp" />
+    <ClCompile Include="ParameterInit.cpp" />
+    <ClCompile Include="RunningStepThread.cpp" />
+    <ClCompile Include="tinystr.cpp" />
+    <ClCompile Include="tinyxml.cpp" />
+    <ClCompile Include="tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxmlparser.cpp" />
+    <ClCompile Include="xmlFileSetting.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MoldMachine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Counters.ui" />
+    <QtUic Include="CurRoiDisplay.ui" />
+    <QtUic Include="CycleSetting.ui" />
+    <QtUic Include="CycleStepSetting.ui" />
+    <QtUic Include="DataSource.ui" />
+    <QtUic Include="DelaySetting.ui" />
+    <QtUic Include="ImageSetting.ui" />
+    <QtUic Include="IOService.ui" />
+    <QtUic Include="MoldMachine.ui" />
+    <QtUic Include="MoldObjects.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="MoldMachine.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\tinyxml\tinyxml.h" />
+    <ClInclude Include="Adam6060.h" />
+    <ClInclude Include="CameraDrive.h" />
+    <QtMoc Include="CurRoiDisplay.h" />
+    <ClInclude Include="ImageProcessing.h" />
+    <QtMoc Include="MoldObject.h" />
+    <ClInclude Include="MysqlSetting.h" />
+    <ClInclude Include="ParameterInit.h" />
+    <ClInclude Include="tinystr.h" />
+    <ClInclude Include="x64\Debug\uic\ui_Counters.h" />
+    <ClInclude Include="x64\Debug\uic\ui_CycleSetting.h" />
+    <ClInclude Include="x64\Debug\uic\ui_CycleStepSetting.h" />
+    <ClInclude Include="x64\Debug\uic\ui_DelaySetting.h" />
+    <ClInclude Include="x64\Debug\uic\ui_ImageSetting.h" />
+    <ClInclude Include="x64\Debug\uic\ui_IOService.h" />
+    <ClInclude Include="x64\Debug\uic\ui_MoldObjects.h" />
+    <ClInclude Include="xmlFileSetting.h" />
+    <QtMoc Include="RunningStepThread.h" />
+    <QtMoc Include="IOService.h" />
+    <QtMoc Include="ImageSetting.h" />
+    <QtMoc Include="DelaySetting.h" />
+    <QtMoc Include="CycleStepSetting.h" />
+    <QtMoc Include="CycleSetting.h" />
+    <QtMoc Include="CounterSetting.h" />
+    <ClInclude Include="x64\Debug\uic\ui_MoldMachine.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

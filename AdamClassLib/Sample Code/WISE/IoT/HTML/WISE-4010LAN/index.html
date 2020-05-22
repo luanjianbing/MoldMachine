@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>ADVANTECH</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script src="jquery.js"></script>
+    </head>  	
+  <body>
+  	<div class="container" style="text-align: center">
+      <header class="page-header" style="position: relative; text-align: left;">
+          <span style="margin: 0 0 0 0; margin-left:35px; font-size:2.0em; font-weight: bold; color: #FFF; display: inline-block">WISE-4010/LAN</span>
+          <br/>
+          <span style="margin: 0 0 0 0; margin-left:35px;font-size:1.2em; font-weight: bold; color: #FFF; display: inline-block">4-ch Current Input / 4-ch Digital Output IoT Ethernet I/O Module</span>
+          <span style=" top: 0; right: 0; position: absolute; margin:0 1% 0 0; margin-right:20px; color:#FFF ">Version 1.0.2</span>
+      </header>
+      <div class="row">
+          <div class="panel-body col-sm-12" style="text-align: left;">
+              <table border="0" align="left" cellpadding="0" cellspacing="0">
+                	<tr>
+                	    <td  colspan="3" valign="top">
+                    	  	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td valign="top">
+                                	 <table border="0" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                         <td ><button class="btn btn-lg btn-default" onclick="pageOnBtnIntroductionClick()" style="margin-top: -15px;padding:4px 110px 2px 5px; font-size: 0.8em; " >Introduction</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td height="12"></td>
+                                      </tr>
+                                      <tr>
+                                        <td><button class="btn btn-lg btn-default" onclick="pageOnBtnGetModuleInfoClick(1)" style="margin-top: -15px;padding:4px 103px 2px 5px; font-size: 0.8em; " >Device Profile</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td height="12"></td>
+                                      </tr>
+                                      <tr>
+                                        <td ><button class="btn btn-lg btn-default" onclick="pageOnBtnGetModuleInfoClick(2)" style="margin-top: -15px;padding:4px 19px 2px 5px; font-size: 0.8em; " >Network Config Information</button></td>
+                                      </tr>
+                                      <tr>
+                                        <td height="12"> </td>
+                                      </tr>
+                                   </table>
+                                </td>
+                                <td valign="top">
+                                	 <table width="98%"  border="0" align="left" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                        <td>&nbsp;</td>
+                                        <td width="800"><div id="BulletinBoard" style="padding:5px 5px 0px 25px; align="justify">The WISE-4000/LAN series provide a cost-effective solution for cloud applications. By supporting direct cloud access, new web service and datalog, the WISE-4000/LAN series can seamlessly connect to cloud for an Ethernet solution.</div></td>
+                                        <td>&nbsp;</td>
+                                      </tr>
+                                      <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                      </tr>
+                                      <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                      </tr>
+                                   </table>
+                                </td>
+                            </tr>
+                          </table>
+                      </td>
+                  </tr>            	
+              </table>
+          </div>
+          <div class="panel-body col-sm-6" style="text-align: left;">
+              <div class="col-sm-12" style="display: inline-block">
+                 <span style="margin-left:10px; font-size:1.1em; font-weight: bold; color: #0066FF; display: inline-block">Trend Log</span>                              	
+              </div>
+              <div id= "canvasAiContainer" class="col-sm-12" style="display: inline-block">
+              	<canvas id="adamAiCanvas">
+                   Your browser doesn't support Canvas! Historical data disabled!
+                </canvas>
+              </div>
+              <br/>
+              <div class="col-sm-12" style="display: inline-block">
+                 <form id='fm1' onclick='hittedAiRadioClick(this, "targetAiChNum")'>
+                   <div style="text-align: left; margin-left:35px; color:#0066FF; font-size:1.0em;">
+                     <input name='targetAiChNum' type=radio id='radioAI0' value=0 checked>AI-0&nbsp;&nbsp;&nbsp;
+                     <input name='targetAiChNum' type=radio id='radioAI1' value=1>AI-1&nbsp;&nbsp;&nbsp;
+                     <input name='targetAiChNum' type=radio id='radioAI2' value=2>AI-2&nbsp;&nbsp;&nbsp;
+                     <input name='targetAiChNum' type=radio id='radioAI3' value=3>AI-3
+                   </div>
+                 </form> 
+              </div>
+             
+              <div id= "canvasDoContainer" class="col-sm-12" style="display: inline-block">
+              	<canvas id="adamDoCanvas">
+                   Your browser doesn't support Canvas! Historical data disabled!
+                </canvas>
+              </div>
+              
+              <br/><br/>              
+              <div class="panel col-sm-12" style="display: inline-block">
+                	<table border="0" align="left" cellpadding="0" cellspacing="0">
+                		<tr>&nbsp;</tr>
+                    <tr>
+                    	<td width="30">&nbsp;</td>
+                      <td width="100"><button class="btn btn-danger btn3d" id="BtnToggle" onclick="pageOnToggleClick()" style="border-radius: 50%; border: 5px #FFF solid; width: 78px; height: 60px; padding: 8px 11px; line-height: 1.33; font-weight: bold; font-size: 14px; margin: 5% 2% 0 0">STOP</button></td>
+                      <td width="100"><button class="btn btn-warning btn3d"  id="BtnReset" onclick="pageOnResetClick()" style="border-radius: 50%; border: 5px #FFF solid; width: 78px; height: 60px; padding: 8px 11px; line-height: 1.33; font-weight: bold; font-size: 14px; margin: 5% 2% 0 0">RESET</button></td>
+                    </tr>
+                  </table>              	
+              </div>          
+          </div>
+          <div class="panel-body col-sm-6" style="text-align: left;">
+          	<div class="panel-body col-sm-12" style="text-align: left; margin-left:35px; color:#0066FF; font-size:1.0em;">
+          		<div id="AIPOLL" style="align="justify">Waiting...</div>
+          	</div>
+          	<div class="panel-body col-sm-12" style="text-align: left; margin-left:35px; color:#0066FF; font-size:1.0em; font-weight: bold;">
+ 				       <table border="0" align="left" cellpadding="0" cellspacing="0">
+                  <tr>
+                  	<td width="100">AI-0</td>
+                    <td width="100">AI-1</td>
+                    <td width="100">AI-2</td>
+                    <td width="100">AI-3</td>
+                  </tr>
+               </table> 						  						  						  
+            </div>          	
+          	<div class="panel-body col-sm-12" style="text-align: left; margin-left:35px; font-size:0.8em;">
+          		 <table border="0" align="left" cellpadding="0" cellspacing="0">
+                  <tr>
+                  	<td id="AI0" width="100">0</td>
+                    <td id="AI1" width="100">0</td>
+                    <td id="AI2" width="100">0</td>
+                    <td id="AI3" width="100">0</td>
+                  </tr>
+               </table>
+            </div>
+            <div class="panel-body col-sm-12" style="text-align: left; margin-left:35px; color:#0066FF; font-size:1.0em;">
+          		<div id="DOPOLL" style="align="justify">Waiting...</div>
+          	</div>
+          	<div class="panel-body col-sm-12" style="text-align: left; margin-left:35px; color:#0066FF; font-size:1.0em; font-weight: bold;">
+ 				       <table border="0" align="left" cellpadding="0" cellspacing="0">
+                  <tr>
+                  	<td width="100">DO-0</td>
+                    <td width="100">DO-1</td>
+                    <td width="100">DO-2</td>
+                    <td width="100">DO-3</td>
+                  </tr>
+               </table> 	          		
+            </div>          	
+          	<div id="panelDoStatus" class="panel-body col-sm-12" style="text-align: left; margin-left:35px;">
+          		 <table border="0" align="left" cellpadding="0" cellspacing="0">
+                  <tr>
+                  	<td width="100"><img id="DO0" alt="0"></td>
+                    <td width="100"><img id="DO1" alt="0"></td>
+                    <td width="100"><img id="DO2" alt="0"></td>
+                    <td width="100"><img id="DO3" alt="0"></td>
+                  </tr>
+               </table>
+            </div>
+            <div class="form-group col-sm-12" style="display: inline-block; margin-left:25px;">
+ 				       <table border="0" align="left" cellpadding="0" cellspacing="0">
+                  <tr>
+                  	<td width="100"><button id="BTNDO0" onclick="pageOnApplyClick(0)" class="btn btn-primary">DO-0</button></td>
+                    <td width="100"><button id="BTNDO1" onclick="pageOnApplyClick(1)" class="btn btn-primary">DO-1</button></td>
+                    <td width="100"><button id="BTNDO2" onclick="pageOnApplyClick(2)" class="btn btn-primary">DO-2</button></td>
+                    <td width="100"><button id="BTNDO3" onclick="pageOnApplyClick(3)" class="btn btn-primary">DO-3</button></td>
+                  </tr>
+               </table> 						  						  						              	
+            </div>
+          </div>
+      </div>
+      <br/>
+      <footer>
+      	<span style="color:#FFF "><a target="_self" href="/" style="color:#00BBFF">Back to Login</a></span>
+      	<br/>
+      	<span style="color:#FFF ">Copyright &copy;2015 by <a target="_blank" href="http://www.advantech.com/" style="color:#00BBFF">Advantech Corp</a></span>      	
+      </footer>
+    </div>
+  </body>
+</html>
+
+<script>
+  var aiCanvas;
+  var aiCtx;
+  var scanInterval = 1000;
+  var aiTotal = 4;
+  var aiPadSize = 30;
+  var aiGridSize = 12;
+  var aiStepSize = 6;
+  var aiColumnInc = 0;
+  var fontSize = 12;
+  var aiRangeReady = false;
+  var aiRangeMax, aiRangeMin, aiRangeUnit;
+  var aiValue, aiColor;
+  var aiCntMaxTotal, aiCntIndex, aiCntTotal;
+  var aiDataArray;
+  var aiPolling, aiPollingCount;
+  var aiFailCount, aiWaitCount;
+  var aiRangeFailCount;
+  var AiConfigProfile = {
+      AIRangeEmun:{
+          259:{min:-150, max:150, unit:"mV"},
+          260:{min:-500, max:500, unit:"mV"},
+          320:{min:-1, max:1, unit:"V"},
+          321:{min:-2.5, max:2.5, unit:"V"},
+          322:{min:-5, max:5, unit:"V"},
+          323:{min:-10, max:10, unit:"V"},
+          327:{min:0, max:5, unit:"V"},
+          328:{min:0, max:10, unit:"V"},
+          384:{min:4, max:20, unit:"mA"},
+          385:{min:-20, max:20, unit:"mA"},
+          386:{min:0, max:20, unit:"mA"},
+          65535:{min:"****", max:"****", unit:"****"}
+  }};
+  var lightOnSrc, lightOffSrc;
+  var doCanvas;
+  var doCtx;
+  var doTotal = 4;
+  var doPadSize = 30;
+  var doGridSize = 16;
+  var doStepSize = 8;
+  var doColumnInc = 0;
+  var doCntMaxTotal, doCntIndex, doCntTotal;
+  var doStatus;
+  var doDataArray;
+  var doPolling, doPollingCount;
+  var doFailCount, doWaitCount;
+  var maxWait = 5;
+  var maxFail = 3;
+  var preAiChNum = -1;
+  var statusStop = 0;
+  var statusRunning = 1;
+  var statusRestart = 2;
+  var trendDrawFlag = 1; 
+
+  $(document).ready(function() {
+  	$('body').hide().fadeIn(1000);
+  	pageOnInit();
+  });
+ 
+  function AdamTrend_Init()
+  {
+  	//Init Ai
+   	aiValue = new Array(aiTotal);
+   	aiRangeMax = new Array(aiTotal);
+   	aiRangeMin = new Array(aiTotal);
+   	aiRangeUnit = new Array(aiTotal);
+   	aiColor = new Array(aiTotal);
+   	aiPollingCount = 0;
+   	aiPolling = 0;
+   	aiFailCount = 0;  
+   	
+  	aiColor[0] = "#8B0000"; // darkred
+	  aiColor[1] = "#8B008B"; // darkmagenta
+	  aiColor[2] = "#D2691E"; // chocolate
+	  aiColor[3] = "#008080"; // green(teal)		
+  	//
+  	for (var iCh=0; iCh<aiTotal; iCh++)
+  	{
+  		aiValue[iCh] = 0;
+  		document.getElementById("AI"+iCh).innerHTML = "----";
+  	}
+  	//	
+  	//Init Do
+  	doStatus = new Array(doTotal);
+  	lightOnSrc  = "data:image/png;base64,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";
+  	lightOffSrc = "data:image/png;base64,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";
+  	doPollingCount = 0;
+  	doPolling = 0;
+  	doFailCount = 0;
+  	doWaitCount = 0;
+  	//
+  	$('#panelDoStatus img').attr('src', lightOffSrc);
+  	//
+  	aiCanvas = document.getElementById("adamAiCanvas");
+  	doCanvas = document.getElementById("adamDoCanvas");
+  	try
+  	{
+  		aiCtx = aiCanvas.getContext("2d");
+  		aiCanvas.width = document.getElementById("canvasAiContainer").offsetWidth;
+  		aiCanvas.height = aiPadSize*2 + 120;
+  		doCtx = doCanvas.getContext("2d");
+  		doCanvas.width = document.getElementById("canvasDoContainer").offsetWidth;
+  		doCanvas.height = doPadSize*2 + doGridSize*doTotal+doGridSize/2;
+  		// deal with data
+  		aiCntMaxTotal = Math.floor((aiCanvas.clientWidth - aiPadSize*2)/aiStepSize) + 1;
+		  aiCntTotal = 0;
+		  aiCntIndex = 0;
+  		doCntMaxTotal = Math.floor((doCanvas.clientWidth - doPadSize*2)/doStepSize) + 1;
+  		doCntTotal = 0;
+  		doCntIndex = 0;
+  	}
+  	catch (e)
+  	{
+  		aiCtx = null;
+  		doCtx = null;
+  		alert("Your browser doesn't support Canvas! The historical data will not be shown!");
+  	}
+  }
+ 
+  function AdamTrend_DrawAiLabel()
+  {
+  	var iCnt, x, y1, y2;
+  
+  	aiDataArray = new Array(aiTotal);
+  	aiCtx.font=fontSize+"px Arial";
+  	// new data array & draw label
+  	x = aiCanvas.width - aiPadSize + 1;
+  	y1 = aiPadSize+((aiGridSize+fontSize)/2);
+  	for (var iCh=0; iCh<aiTotal; iCh++)
+  	{
+  		aiDataArray[iCh] = new Array(aiCntMaxTotal);
+  		y2 = y1 + (aiGridSize + 10)*iCh;
+  		// fill channel background
+  		aiCtx.fillStyle=aiColor[iCh];
+  		aiCtx.fillRect(x - 1, y2 - 1, aiPadSize - 2, fontSize + 2);
+  		// fill channel text
+  		aiCtx.fillStyle="#FFFFFF";
+  		aiCtx.fillText("AI-"+iCh, x, y2 - 1 + fontSize);
+  	}
+  	// draw buttom label
+  	y1 = aiCanvas.clientHeight - aiPadSize;
+  	y2 = y1 + 10;
+  	x = aiCanvas.clientWidth - aiPadSize;
+  	aiCtx.fillStyle="#000000";
+  	aiCtx.strokeStyle="#000000";
+  	aiCtx.lineWidth=1;
+  	iCnt = 0;
+  	while (x >= aiPadSize)
+  	{
+  		aiCtx.beginPath();
+  		aiCtx.moveTo(x, y1);
+  		aiCtx.lineTo(x, y2);
+  		aiCtx.stroke();
+  		if (iCnt < 10)
+  			aiCtx.fillText(iCnt, x-3, y2+fontSize+2);
+  		else
+  			aiCtx.fillText(iCnt, x-6, y2+fontSize+2);
+  		//
+  		iCnt += Math.floor((aiGridSize*2/aiStepSize)*scanInterval/1000);
+  		x -= aiGridSize*2;
+  	}
+  }
+  
+  function AdamTrend_DrawDoLabel()
+  {
+  	var iCnt, x, y1, y2;
+  
+  	doDataArray = new Array(doTotal);
+  	doCtx.font=fontSize+"px Arial";
+  	// new data array & draw label
+  	x = doCanvas.width - doPadSize + 1;
+  	y1 = doPadSize+((doGridSize+fontSize)/2);
+  	for (var iCh=0; iCh<doTotal; iCh++)
+  	{
+  		doDataArray[iCh] = new Array(doCntMaxTotal);
+  		y2 = y1 + doGridSize*iCh;
+  		doCtx.fillText("DO-"+iCh, 0, y2);
+  		doCtx.fillText("DO-"+iCh, x, y2);
+  	}
+  	// draw buttom label
+  	y1 = doCanvas.clientHeight - doPadSize;
+  	y2 = y1 + 10;
+  	x = doCanvas.clientWidth - doPadSize;
+    doCtx.fillStyle="#000000";
+  	doCtx.strokeStyle="#000000";
+  	doCtx.lineWidth=1;
+  	iCnt = 0;
+  	while (x >= doPadSize)
+  	{
+  		doCtx.beginPath();
+  		doCtx.moveTo(x, y1);
+  		doCtx.lineTo(x, y2);
+  		doCtx.stroke();
+  		if (iCnt < 10)
+  			doCtx.fillText(iCnt, x-3, y2+fontSize+2);
+  		else
+  			doCtx.fillText(iCnt, x-6, y2+fontSize+2);
+  		//
+  		iCnt += Math.floor((doGridSize*2/doStepSize)*scanInterval/1000);
+  		x -= doGridSize*2;
+  	}		
+  }  
+  
+  function AdamTrend_UpdateAiData()
+  {
+  	//Ai
+  	if (aiCntTotal == 0)
+  	{
+  		aiCntIndex = 0;
+  		aiCntTotal = 1;
+  	}
+  	else if (aiCntTotal < aiCntMaxTotal)
+  	{
+  		aiCntTotal++;
+  		aiCntIndex++;
+  	}
+  	else
+  	{
+  		if (aiCntIndex < aiCntMaxTotal - 1)
+  			aiCntIndex++;
+  		else
+  			aiCntIndex = 0;
+  	}
+  	//
+  	for (var iCh=0; iCh<aiTotal; iCh++)
+  		aiDataArray[iCh][aiCntIndex] = aiValue[iCh];
+  
+  }
+  
+  function AdamTrend_UpdateDoData()
+  {
+  	if (doCntTotal == 0)
+  	{
+  		doCntIndex = 0;
+  		doCntTotal = 1;
+  	}
+  	else if (doCntTotal < doCntMaxTotal)
+  	{
+  		doCntTotal++;
+  		doCntIndex++;
+  	}
+  	else
+  	{
+  		if (doCntIndex < doCntMaxTotal - 1)
+  			doCntIndex++;
+  		else
+  			doCntIndex = 0;
+  	}
+  	//
+  	for (var iCh=0; iCh<doTotal; iCh++)
+  		doDataArray[iCh][doCntIndex] = doStatus[iCh];
+  }  
+  
+  function AdamTrend_RefreshAiDataLine(iCh)
+  {
+  	var iCnt, iIdx, x, yOn, yOff
+  	var val, rectHeight, startPoint;
+  	var y;
+  	if (aiCntTotal > 1)
+  	{
+  		iCnt = 0;
+  		iIdx = aiCntIndex;
+  		startPoint = aiCanvas.clientHeight - aiPadSize;
+  		rectHeight = aiCanvas.clientHeight - aiPadSize * 2;
+  		aiCtx.strokeStyle = aiColor[iCh];
+  		if (preAiChNum == iCh)
+  			aiCtx.lineWidth=3;
+  		else
+  			aiCtx.lineWidth=1;
+  		aiCtx.beginPath();
+  		while (iCnt < aiCntTotal)
+  		{
+  			x = aiCanvas.clientWidth - aiPadSize - aiStepSize*iCnt -1;
+  			if (x < aiPadSize)
+  				x = aiPadSize;
+  			val = aiDataArray[iCh][iIdx];
+  			y = Math.floor(startPoint - rectHeight*parseInt(val, 10)/4095);
+  			//
+  			if (iCnt == 0)
+  				aiCtx.moveTo(x, y);
+  			else
+  				aiCtx.lineTo(x, y);
+  			//
+  			if (iIdx == 0)
+  				iIdx = aiCntTotal - 1;
+  			else
+  				iIdx--;
+  			iCnt++;
+  		}
+  		aiCtx.stroke();
+  	}
+  }
+  
+  function AdamTrend_RefreshDoDataLine(iCh)
+  {
+  	var iCnt, iIdx, x, yOn, yOff
+  	var preX, preVal, val;
+  	var y = new Array(2);
+  	if (doCntTotal > 1)
+  	{
+  		y[0] = doPadSize+doGridSize+doGridSize*iCh; // channel OFF
+  		y[1] = doPadSize+doGridSize+doGridSize*iCh-doGridSize/2; // channel ON
+  		doCtx.strokeStyle="#FF3300";
+      doCtx.fillStyle="#FF3300";
+  
+  		iCnt = 0;
+  		iIdx = doCntIndex;
+  		doCtx.lineWidth=1;
+  		doCtx.beginPath();
+  		while (iCnt < doCntTotal)
+  		{
+  			x = doCanvas.clientWidth - doPadSize - doStepSize*iCnt -1;
+  			if (x < doPadSize)
+  				x = doPadSize;
+ 	    
+  			val = doDataArray[iCh][iIdx];
+  			
+  			//
+  			if (iCnt == 0)
+  				doCtx.moveTo(x, y[val]);
+  			else
+  			{
+  				if (preVal == val)
+  					doCtx.lineTo(x, y[val]);
+  				else
+  				{
+  					doCtx.lineTo(preX, y[val]);
+  					doCtx.lineTo(x, y[val]);
+  				}
+  				// to fill high part
+  				if (val == 1)
+  					doCtx.fillRect(x, y[1], doStepSize, doGridSize/2 + 1);
+  			}
+  			//
+  			preX = x;
+  			preVal = val;
+  			if (iIdx == 0)
+  				iIdx = doCntTotal - 1;
+  			else
+  				iIdx--;
+  			iCnt++;
+  		}
+  		doCtx.stroke();
+  	}
+  }
+  
+  function AdamTrend_RefreshAiCanvas()
+  {
+  	// Fill with gradient
+  	aiCtx.fillStyle="#FFFAFA";
+  	aiCtx.fillRect(aiPadSize, aiPadSize, aiCanvas.clientWidth - aiPadSize*2, aiCanvas.clientHeight - aiPadSize*2);
+  	// draw row	
+  	aiCtx.strokeStyle="#DCDCDC";//"#E6E6FA";
+  	aiCtx.lineWidth=1;
+  	for (var y=aiPadSize; y<aiCanvas.clientHeight - aiPadSize; y+=aiGridSize)
+  	{
+  		aiCtx.beginPath();
+  		aiCtx.moveTo(aiPadSize, y);
+  		aiCtx.lineTo(aiCanvas.clientWidth - aiPadSize, y);
+  		aiCtx.stroke();
+  	}
+  	// draw column
+  	for (var x = aiCanvas.clientWidth - aiPadSize - aiColumnInc; x > aiPadSize; x -= aiGridSize)
+  	{
+  		aiCtx.beginPath();
+  		aiCtx.moveTo(x, aiPadSize);
+  		aiCtx.lineTo(x, aiCanvas.clientHeight - aiPadSize);
+  		aiCtx.stroke();
+  	}
+  	aiColumnInc += aiStepSize;
+  	if (aiColumnInc >= aiGridSize)
+  		aiColumnInc -= aiGridSize;
+  	// draw data line
+  	for (var iCh=0; iCh<aiTotal; iCh++)
+  		AdamTrend_RefreshAiDataLine(iCh);
+  	// draw border
+  	aiCtx.strokeStyle="#E6E6FA";
+  	aiCtx.lineWidth=2;
+  	aiCtx.beginPath();
+  	aiCtx.moveTo(aiPadSize - 1, aiPadSize - 1);
+  	aiCtx.lineTo(aiCanvas.clientWidth - aiPadSize + 1, aiPadSize - 1);
+  	aiCtx.lineTo(aiCanvas.clientWidth - aiPadSize + 1, aiCanvas.clientHeight - aiPadSize + 1);
+  	aiCtx.lineTo(aiPadSize - 1, aiCanvas.clientHeight - aiPadSize + 1);
+  	aiCtx.lineTo(aiPadSize - 1, aiPadSize - 1);
+  	aiCtx.stroke();
+  }
+  
+  function AdamTrend_RefreshDoCanvas()
+  {
+  	// Fill with gradient
+  	doCtx.fillStyle="#FFFAFA";
+  	doCtx.fillRect(doPadSize, doPadSize, doCanvas.clientWidth - doPadSize*2, doCanvas.clientHeight - doPadSize*2);
+  	// draw row	
+  	doCtx.strokeStyle="#DCDCDC";
+  	doCtx.lineWidth=1;
+  	for (var y=doPadSize; y<doCanvas.clientHeight - doPadSize; y+=doGridSize)
+  	{
+  		doCtx.beginPath();
+  		doCtx.moveTo(doPadSize, y);
+  		doCtx.lineTo(doCanvas.clientWidth - doPadSize, y);
+  		doCtx.stroke();
+  	}
+  	// draw column
+    for (var x = doCanvas.clientWidth - doPadSize - doColumnInc; x > doPadSize; x -= doGridSize)	
+    {
+  		doCtx.beginPath();
+  		doCtx.moveTo(x, doPadSize);
+  		doCtx.lineTo(x, doCanvas.clientHeight - doPadSize);
+  		doCtx.stroke();
+  	}
+  	doColumnInc += doStepSize;
+  	if (doColumnInc >= doGridSize)
+  		doColumnInc -= doGridSize;
+  	// draw data line
+  	for (var iCh=0; iCh<doTotal; iCh++)
+  		AdamTrend_RefreshDoDataLine(iCh);
+  	// draw border
+  	doCtx.strokeStyle="#E6E6FA";
+  	doCtx.lineWidth=2;
+  	doCtx.beginPath();
+  	doCtx.moveTo(doPadSize - 1, doPadSize - 1);
+  	doCtx.lineTo(doCanvas.clientWidth - doPadSize + 1, doPadSize - 1);
+  	doCtx.lineTo(doCanvas.clientWidth - doPadSize + 1, doCanvas.clientHeight - doPadSize + 1);
+  	doCtx.lineTo(doPadSize - 1, doCanvas.clientHeight - doPadSize + 1);
+  	doCtx.lineTo(doPadSize - 1, doPadSize - 1);
+  	doCtx.stroke();
+  }
+  
+  function pageOnBtnIntroductionClick()
+  {
+  	var str_Introduction = "";
+  	str_Introduction = str_Introduction + "<p>";
+  	str_Introduction = str_Introduction + "The WISE-4000/LAN series provide a cost-effective solution for cloud applications. By supporting direct cloud access, new web service and datalog, the WISE-4000/LAN series can seamlessly connect to cloud for an Ethernet solution.";
+  	str_Introduction = str_Introduction + "</p>";
+  	$('#BulletinBoard').html(str_Introduction).hide().fadeIn(1000);
+  }
+  
+  function pageOnBtnGetModuleInfoClick(iFunIdx)
+  {
+  	var http_request = null;
+  	var int_FadeInTime = 1000;
+  	var str_ModuleInfo = "";
+  	var str_URL = "";
+
+  	if (iFunIdx == 1)
+  	{
+  		str_URL = "sys_info";
+  	}
+  	else
+  	{
+  		str_URL = "net_basic";
+  	}
+	
+  	try
+  	{
+  			if (window.XMLHttpRequest)
+  			{// code for IE7+, Firefox, Chrome, Opera, Safari
+  				http_request = new XMLHttpRequest();
+  			}
+  			else
+  			{// code for IE6, IE5
+  				http_request = new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+  			
+  			http_request.onreadystatechange = function()
+  			{			
+  				if (http_request.readyState==4)
+  				{
+  					if (http_request.status==200)
+  					{						
+  						try
+  						{
+  							//Javascript function JSON.parse to parse JSON data
+  							var jsonObj;
+  							jsonObj = JSON.parse(http_request.responseText);
+  							
+  							if( jsonObj!=null && jsonObj!=undefined)
+  							{
+  								if (iFunIdx == 1)
+  								{
+    								str_ModuleInfo = str_ModuleInfo + "<p>";
+    								str_ModuleInfo = str_ModuleInfo + "Model ID : " + jsonObj.Id.trim() + "<br/>"; 
+    								str_ModuleInfo = str_ModuleInfo + "User Defined Module Name : " + jsonObj.Nm.trim() + "<br/>"; 
+    								str_ModuleInfo = str_ModuleInfo + "Module Description : " + jsonObj.Des.trim() + "<br/>"; 
+    								str_ModuleInfo = str_ModuleInfo + "UUID : " + jsonObj.UID.trim();
+    								str_ModuleInfo = str_ModuleInfo + "</p>";  									
+  							  }
+  								else
+  								{
+  									str_ModuleInfo = str_ModuleInfo + "<p>";
+    								str_ModuleInfo = str_ModuleInfo + "MAC address : " + jsonObj.MAC.trim() + "<br/>"; 
+    								str_ModuleInfo = str_ModuleInfo + "IP Address : " + jsonObj.IP.trim() + "<br/>";
+    								str_ModuleInfo = str_ModuleInfo + "Subnet Mask : " + jsonObj.Msk.trim() + "<br/>";
+    								str_ModuleInfo = str_ModuleInfo + "Gateway Address : " + jsonObj.GW.trim();
+    								str_ModuleInfo = str_ModuleInfo + "</p>";  									
+  								}
+  								
+  								$('#BulletinBoard').html(str_ModuleInfo).hide().fadeIn(int_FadeInTime);
+  					    }
+  					    else
+        	    	{
+        	    		str_ModuleInfo = str_ModuleInfo + "<p>";
+        	    		str_ModuleInfo = str_ModuleInfo + "Err: JSON parse failed!";
+        	    		str_ModuleInfo = str_ModuleInfo + "</p>";
+        	    		$('#BulletinBoard').html(str_ModuleInfo).hide().fadeIn(int_FadeInTime);
+  				    	}
+  				    }
+            	catch(e)
+            	{
+        	    	str_ModuleInfo = str_ModuleInfo + "<p>";
+        	    	str_ModuleInfo = str_ModuleInfo + "Err: ResponseText is not a valid JSON string!";
+        	    	str_ModuleInfo = str_ModuleInfo + "</p>";
+        	    	$('#BulletinBoard').html(str_ModuleInfo).hide().fadeIn(int_FadeInTime);            		
+            	}					  
+  					}
+  					else
+  					{
+        	    str_ModuleInfo = str_ModuleInfo + "<p>";
+        	    str_ModuleInfo = str_ModuleInfo + "Err: http_request.status = " + http_request.status;
+        	    str_ModuleInfo = str_ModuleInfo + "</p>";
+        	    $('#BulletinBoard').html(str_ModuleInfo).hide().fadeIn(int_FadeInTime);            		  						
+  					}
+  				}
+  			}			
+  
+  			http_request.open( "GET", str_URL, true );
+  			http_request.send();
+  	}
+  	catch(e)
+  	{
+  		$('#BulletinBoard').text(" Err: " + e + "!").hide().fadeIn(int_FadeInTime);
+  	}
+  }
+  
+  function pageOnToggleClick()
+  {
+  	var btnElement;
+  	if (trendDrawFlag == statusRunning)
+  	{
+  		document.getElementById("BtnToggle").className = "btn btn-success btn3d";
+  		btnElement = document.getElementById("BtnToggle");
+  		btnElement.firstChild.data = "START";
+  		trendDrawFlag = 0;		
+  	}
+  	else
+  	{
+  		document.getElementById("BtnToggle").className = "btn btn-danger btn3d";
+  		btnElement = document.getElementById("BtnToggle");
+  		btnElement.firstChild.data = "STOP";		
+  		trendDrawFlag = 1;
+  	}
+  }
+  
+  function pageOnResetClick()
+  {
+  	var btnElement;
+  	document.getElementById("BtnToggle").className = "btn btn-danger btn3d";
+  	btnElement = document.getElementById("BtnToggle");
+  	btnElement.firstChild.data = "STOP";			
+  	trendDrawFlag = 2;	
+  } 
+  
+  function pageOnInit()
+  {
+  	AdamTrend_Init();
+  	if (aiCtx != null)
+  	{
+  		AdamTrend_DrawAiLabel();
+  	}
+  	if (doCtx != null)
+  	{
+  		AdamTrend_DrawDoLabel();
+  	}
+  	httpGetAiRange();
+  	pageOnTimer();
+  }
+  
+  function pageOnTimer()
+  {
+  	httpGetAiData();
+  	httpGetDoData();
+  	
+  	if ((aiCtx != null)&& (doCtx != null))
+  	{
+  		if (trendDrawFlag == statusRestart)
+  		{
+  				AdamTrend_Init();
+  				aiRangeReady = false;
+  				httpGetAiRange();
+  	      if ((aiCtx != null)&& (doCtx != null))
+  	      {
+  	      	AdamTrend_DrawAiLabel();
+  		      AdamTrend_DrawDoLabel();
+  		      trendDrawFlag = statusRunning;
+  		    }
+  		}
+  		if (trendDrawFlag == statusRunning)
+  		{
+  			AdamTrend_UpdateAiData();
+  			AdamTrend_RefreshAiCanvas();
+  		  AdamTrend_UpdateDoData();
+  		  AdamTrend_RefreshDoCanvas();
+  	  }
+  	}
+  	
+  	if (aiRangeReady == true)
+  	{
+  		pageUpdateData();
+  	}
+  	else
+  	{
+  		httpGetAiRange();
+  		if (aiRangeReady == true)
+  		{
+  			pageUpdateData();
+  		}
+  		else
+  		{
+  		  aiRangeFailCount++;
+  	  }
+  	}
+  	
+  	pageUpdateLights();			
+  	
+  	//
+  	if (aiFailCount == maxFail)
+  	{
+  		alert("AI polling has failed more than 5 times, polling suspended!");
+  	}
+  	else if (aiRangeFailCount == maxFail)
+  	{
+  		alert("Failed to get AI range! You may refresh this page to retry");
+  	}
+  	else if (doFailCount == maxFail)
+  	{
+     	for (var iCh=0; iCh<doTotal; iCh++)
+     	{
+     		document.getElementById("BTNDO"+iCh).disabled = true;
+     	}  		
+  		alert("DO polling has failed " + maxFail + " times, polling suspended!");
+  	}		
+  	else
+  	{
+  		setTimeout(function(){pageOnTimer()}, scanInterval);  	
+  	}
+  }
+  
+  function pageUpdateData()
+  {
+  	var engVal;
+  	for (var iCh=0; iCh<aiTotal; iCh++)
+  	{
+  		engVal = parseInt(aiRangeMin[iCh], 10) + parseInt(aiValue[iCh],10)*(aiRangeMax[iCh] - aiRangeMin[iCh])/4095;
+  		document.getElementById("AI"+iCh).innerHTML = engVal.toFixed(3) + " " + aiRangeUnit[iCh];
+  	}  	
+  }
+  
+  function pageUpdateLights()
+  {
+  	for (var iCh=0; iCh<doTotal; iCh++)
+  	{
+  		if (document.getElementById("DO" + iCh).alt == "0" && doStatus[iCh] == 1)
+  		{
+  			document.getElementById("DO" + iCh).alt = "1";
+  			document.getElementById("DO" + iCh).src = lightOnSrc;
+  		}
+  		else if (document.getElementById("DO" + iCh).alt == "1" && doStatus[iCh] == 0)
+  		{
+  			document.getElementById("DO" + iCh).alt = "0";
+  			document.getElementById("DO" + iCh).src = lightOffSrc;
+  		}
+  	}
+  }  
+  
+  function pageOnApplyClick(iChIdx)
+  {
+    var http_request = null;
+  	var szPatchData = "";
+  	var doValObject = {
+      DOVal: []
+    };
+  	
+  	if (document.getElementById("DO" + iChIdx).alt == "0")
+  	{
+  		doSettingVal = 1;
+  	}
+  	else //if (document.getElementById("DO" + iChIdx).alt == "1")
+  	{
+      doSettingVal = 0;
+  	}
+  	
+   	doValObject.DOVal.push({
+          "Ch"  : iChIdx,
+          "Val" : doSettingVal   		
+    });		  	  	
+  	
+  	szPatchData = JSON.stringify(doValObject);
+  		
+  	try
+  	{
+  		if (window.XMLHttpRequest)
+  		{// code for IE7+, Firefox, Chrome, Opera, Safari
+  			http_request = new XMLHttpRequest();
+  		}
+  		else
+  		{// code for IE6, IE5
+  			http_request=new ActiveXObject("Microsoft.XMLHTTP");
+  		}
+  		http_request.onreadystatechange=function()
+  		{
+  			if (http_request.readyState==4)
+  			{
+  				if (http_request.status==200)
+  				{
+  					var xmlDoc = http_request.responseXML;
+  					if (xmlDoc != null && xmlDoc.documentElement.attributes[0].nodeValue != "OK")
+  						alert("Set DO failed! " + xmlDoc.documentElement.attributes[0].nodeValue);
+  				}
+  				else
+  					alert(" DoOutErr:" + http_request.status + "!");
+  			}
+  		}
+  		http_request.open( "PATCH", "do_value/slot_0", true );
+  		http_request.send(szPatchData);
+  	}
+  	catch(e)
+  	{
+  		alert(e);
+  	}
+  }  
+  
+  function hittedAiRadioClick(obj, aiChName)
+  {
+  	 for(var i=0; i < obj[aiChName].length; i++)
+  	 {
+      if( obj[aiChName][i].checked ) break;
+     }
+     pageOnAiChChange(obj[aiChName][i].value);
+  }
+    
+  function pageOnAiChChange(iAiChIdx)
+  {
+  	var preLab, nowLab, preEle, nowEle;
+  
+  	if (aiCtx != null && aiRangeReady == true)
+  	{
+  		// fill background
+  		aiCtx.fillStyle = aiColor[iAiChIdx];
+  		aiCtx.fillRect(1, aiPadSize - fontSize/2, aiPadSize - 3, fontSize + 2);
+  		aiCtx.fillRect(1, (aiCanvas.clientHeight - fontSize)/2, aiPadSize - 3, fontSize + 2);
+  		aiCtx.fillRect(1, aiCanvas.clientHeight - aiPadSize - fontSize/2, aiPadSize - 3, fontSize + 2);
+  		// fill channel text
+  		aiCtx.fillStyle="#FFFFFF";
+  		aiCtx.fillText(aiRangeMax[iAiChIdx], 2, aiPadSize - fontSize/2 + fontSize - 1);
+  		aiCtx.fillText(aiRangeUnit[iAiChIdx], 2, (aiCanvas.clientHeight - fontSize)/2 + fontSize - 1);
+  		aiCtx.fillText(aiRangeMin[iAiChIdx], 2, aiCanvas.clientHeight - aiPadSize - fontSize/2 + fontSize - 1);
+  		//
+  		preAiChNum = iAiChIdx;
+  	}
+  }  
+  
+  function httpGetAiRange()
+  {
+  	var http_request = null;
+  	
+  	try
+  	{
+  		if (window.XMLHttpRequest)
+  		{// code for IE7+, Firefox, Chrome, Opera, Safari
+  			http_request = new XMLHttpRequest();
+  		}
+  		else
+  		{// code for IE6, IE5
+  			http_request = new ActiveXObject("Microsoft.XMLHTTP");
+  		}
+  		http_request.onreadystatechange = function()
+  		{ 			
+  			if (http_request.readyState==4)
+  			{
+  				if (http_request.status==200)
+  				{
+						try
+						{
+							//Javascript function JSON.parse to parse JSON data
+							var jsonObj;
+							jsonObj = JSON.parse(http_request.responseText);
+							
+							if( jsonObj!=null && jsonObj!=undefined)
+							{
+								for (var iCh=0; iCh<aiTotal; iCh++)
+								{
+								 	aiRangeMax[iCh] = AiConfigProfile.AIRangeEmun[jsonObj.AICfg[iCh].Rng].max;
+								 	aiRangeMin[iCh] = AiConfigProfile.AIRangeEmun[jsonObj.AICfg[iCh].Rng].min;
+								 	aiRangeUnit[iCh] = AiConfigProfile.AIRangeEmun[jsonObj.AICfg[iCh].Rng].unit;
+								}
+								aiRangeReady = true;
+								if (preAiChNum < 0)
+								{
+									preAiChNum = 0;
+								}
+								pageOnAiChChange(preAiChNum);
+					    }
+					    else
+      	    	{
+      	    		document.getElementById("AIPOLL").innerHTML += " AiErr0:JSON parse failed!";
+				    	}
+				    }
+          	catch(e)
+          	{
+          		document.getElementById("AIPOLL").innerHTML += " AiErr1:ResponseText is not a valid JSON string!";
+          	}	  					
+  				}
+  				else
+  			  {
+  					document.getElementById("AIPOLL").innerHTML += " AiErr2:" + http_request.status + "!";
+  				}
+  			}
+  		}
+  		http_request.open( "GET", "ai_config/slot_0", true );
+  		http_request.send();
+  	}
+  	catch(e)
+  	{
+  		alert(e);
+  	}
+  }  
+  
+  function httpGetAiData()
+  {
+  	var http_request = null;
+  	
+  	try
+  	{
+  		if (aiPolling == 0)
+  		{
+  			aiFailCount = 0;
+  			if (window.XMLHttpRequest)
+  			{// code for IE7+, Firefox, Chrome, Opera, Safari
+  				http_request=new XMLHttpRequest();
+  			}
+  			else
+  			{// code for IE6, IE5
+  				http_request=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+  			http_request.onreadystatechange=function()
+  			{				
+  				if (http_request.readyState==4)
+  				{
+  					if (http_request.status==200)
+  					{
+   						try
+   						{
+   							//Javascript function JSON.parse to parse JSON data
+   							var jsonObj;
+   							jsonObj = JSON.parse(http_request.responseText);
+   							
+   							if( jsonObj!=null && jsonObj!=undefined)
+   							{
+   								for (var iCh=0; iCh<aiTotal; iCh++)
+   								{
+   								 	aiValue[iCh] = jsonObj.AIVal[iCh].Val;
+   								}
+   					    }
+   					    else
+         	    	{
+         	    		document.getElementById("AIPOLL").innerHTML += " AiErr0:JSON parse failed!";
+   				    	}
+   				    }
+             	catch(e)
+             	{
+             		document.getElementById("AIPOLL").innerHTML += " AiErr1:ResponseText is not a valid JSON string!";
+             	}	  						
+  					}
+  					else
+  					{
+  						document.getElementById("AIPOLL").innerHTML += " AiErr2:" + http_request.status + "!";
+  					}
+  					aiPolling = 0;
+  					aiFailCount = 0; // reset fail count
+  				}
+  			}
+  			http_request.open( "GET", "ai_value/slot_0", true );
+  			http_request.send();
+  			aiPolling = 1;
+  			aiPollingCount++;
+  			document.getElementById("AIPOLL").innerHTML = "Polling " + aiPollingCount + " times...";
+  		}
+  		else
+  		{
+  			aiWaitCount++;
+  			if (aiWaitCount == maxWait)
+  			{
+  				aiFailCount++;
+  				if (aiFailCount < maxFail)
+  				{
+  					aiPolling = 0; // resend
+  				}
+  			}
+  		}
+  	}
+  	catch(e)
+  	{
+  		aiPolling = 0;
+  		document.getElementById("AIPOLL").innerHTML = "AiErr3:" + e + "!";
+  	}
+  }  
+  
+  function httpGetDoData()
+  {
+  	var http_request = null;
+  	
+  	try
+  	{
+  		if (doPolling == 0)
+  		{
+  			doWaitCount = 0;
+  			if (window.XMLHttpRequest)
+  			{// code for IE7+, Firefox, Chrome, Opera, Safari
+  				http_request=new XMLHttpRequest();
+  			}
+  			else
+  			{// code for IE6, IE5
+  				http_request=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+  			http_request.onreadystatechange=function()
+  			{		
+  				if (http_request.readyState==4)
+  				{
+  					if (http_request.status==200)
+  					{
+  						try
+  						{
+  							//Javascript function JSON.parse to parse JSON data
+  							var jsonObj;
+  							jsonObj = JSON.parse(http_request.responseText);
+  							
+  							if( jsonObj!=null && jsonObj!=undefined)
+  							{
+  								for (var iCh=0; iCh<doTotal; iCh++)
+  								{
+  								 	doStatus[iCh] = jsonObj.DOVal[iCh].Val;
+  								}
+  					    }
+  					    else
+        	    	{
+        	    		document.getElementById("DOPOLL").innerHTML += " DiErr0:JSON parse failed!";
+  				    	}
+  				    }
+            	catch(e)
+            	{
+            		document.getElementById("DOPOLL").innerHTML += " DiErr1:ResponseText is not a valid JSON string!";
+            	}						
+  
+  					}
+  					else
+  				  {
+  						document.getElementById("DOPOLL").innerHTML += " DoErr2:" + http_request.status + "!";
+  					}
+  					doPolling = 0;
+  					doFailCount = 0; // reset fail count
+  				}
+  			}
+  			http_request.open( "GET", "do_value/slot_0", true );
+  			http_request.send();
+  			doPolling = 1;
+  			doPollingCount++;
+  			document.getElementById("DOPOLL").innerHTML = "Polling " + doPollingCount + " times...";
+  		}
+  		else
+  		{
+  			doWaitCount++;
+  			if (doWaitCount == maxWait)
+  			{
+  				doFailCount++;
+  				if (doFailCount < maxFail)
+  				{
+  					doPolling = 0; // resend
+  				}
+  			}
+  		}
+  	}
+  	catch(e)
+  	{
+  		doPolling = 0;
+  		document.getElementById("DOPOLL").innerHTML = "DoErr3:" + e + "!";
+  	}
+  }    
+
+</script>

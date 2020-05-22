@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CycleCntDelayValue>CycleCntDelayValue
+    <counter_1>2</counter_1>
+    <counter_2>0</counter_2>
+    <cycle_times>5</cycle_times>
+    <delay_1>25</delay_1>
+    <delay_2>250</delay_2>
+</CycleCntDelayValue>

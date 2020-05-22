@@ -1,0 +1,33 @@
+TARGETNAME=WDTConfig
+TARGETTYPE=PROGRAM
+RELEASETYPE=PLATFORM
+WINCEOEM=1
+WARNISERROR=
+
+CDEFINES=$(CDEFINES) -nologo -D_AFXDLL -DNOMINMAX=1 -GX
+
+PRECOMPILED_CXX=1
+PRECOMPILED_INCLUDE=stdafx.h
+
+EXEENTRY = wWinMainCRTStartup
+
+TARGETLIBS= \
+!IF ("$(WINCEDEBUG)" == "debug")
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\mfcce400d.lib \
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\olece400d.lib \
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\mfcs42d.lib \
+!ELSE
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\mfcce400.lib \
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\olece400.lib \
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\mfcs42.lib \
+!ENDIF
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\coredll.lib \
+    $(TARGETLIBS)
+
+INCLUDES= \
+   $(_WINCEROOT)\others\mfc\include; \
+
+SOURCES= \
+	WDTConfigDlg.cpp \
+	WDTConfig.cpp \
+	WDTConfig.rc \

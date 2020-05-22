@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<style type="text/css">
+body {background-color:#ADD8E6;}
+td.Fix {text-align:center;vertical-align:bottom;width:110px;}
+td {text-align:center;vertical-align:bottom;}
+</style>
+</head> 
+<body onload="pageOnInit()">
+<center>
+<header>
+<span style="color:brown;font-style:italic;font-size:20px">ADAM-6017<br>8-ch Analog Input w/DO Module</span>
+</header>
+<hr>
+
+<canvas id="adamAiCanvas" style="border:1px solid #d3d3d3;">
+Your browser doesn't support Canvas! Historical data disabled!</canvas>
+<br>
+<canvas id="adamDoCanvas" style="border:1px solid #d3d3d3;">
+Your browser doesn't support Canvas! Historical data disabled!</canvas>
+
+<table border="1" id="TBL0">
+<tr bgcolor="#7FFFD1">
+<th colspan="4">Analog Input Values</th>
+</tr>
+<tr>
+<td id="AIPOLL" colspan="4">Waiting...</td>
+</tr>
+<tr>
+<td id="LA0" class="Fix" onclick=pageOnTdClick(0)>AI-0</td>
+<td id="LA1" class="Fix" onclick=pageOnTdClick(1)>AI-1</td>
+<td id="LA2" class="Fix" onclick=pageOnTdClick(2)>AI-2</td>
+<td id="LA3" class="Fix" onclick=pageOnTdClick(3)>AI-3</td>
+</tr>
+<tr>
+<td id="AI0" onclick=pageOnTdClick(0)>0</td>
+<td id="AI1" onclick=pageOnTdClick(1)>0</td>
+<td id="AI2" onclick=pageOnTdClick(2)>0</td>
+<td id="AI3" onclick=pageOnTdClick(3)>0</td>
+</tr>
+<tr>
+<td id="LA4" class="Fix" onclick=pageOnTdClick(4)>AI-4</td>
+<td id="LA5" class="Fix" onclick=pageOnTdClick(5)>AI-5</td>
+<td id="LA6" class="Fix" onclick=pageOnTdClick(6)>AI-6</td>
+<td id="LA7" class="Fix" onclick=pageOnTdClick(7)>AI-7</td>
+</tr>
+<tr>
+<td id="AI4" onclick=pageOnTdClick(4)>0</td>
+<td id="AI5" onclick=pageOnTdClick(5)>0</td>
+<td id="AI6" onclick=pageOnTdClick(6)>0</td>
+<td id="AI7" onclick=pageOnTdClick(7)>0</td>
+</tr>
+<tr bgcolor="#FF3300">
+<th colspan="4">Digital Output Values</th>
+</tr>
+<tr>
+<td id="DOPOLL" colspan="4">Waiting...</td>
+</tr>
+<tr>
+<td>DO<br>0</td>
+<td>DO<br>1</td>
+<td>&nbsp</td>
+<td>&nbsp</td>
+</tr>
+<tr>
+<td><img id="DO0" alt="0"></td>
+<td><img id="DO1" alt="0"></td>
+<td>&nbsp</td>
+<td>&nbsp</td>
+</tr>
+<tr bgcolor="#FF3300">
+<th colspan="4"><label for="ALL" onclick="">All Channels Output:</label><input type="checkbox" id="ALL" onclick="pageOnCbxClick(99)"></th>
+</tr>
+<tr>
+<td><input type="checkbox" id="CHK0" onclick="pageOnCbxClick(0)"><label for="CHK0" onclick=""><br>DO<br>0</label></td>
+<td><input type="checkbox" id="CHK1" onclick="pageOnCbxClick(1)"><label for="CHK1" onclick=""><br>DO<br>1</label></td>  
+<td>&nbsp</td>
+<td>&nbsp</td>
+</tr>
+<tr>
+<td colspan="4"><button id="BTN0" onclick="pageOnApplyClick()"><font face="arial" size="4">Apply Output</font></button></td>
+</tr>
+</table>
+<br> 
+<a target="_self" href="/">Back to Login</a>
+<footer>
+<hr>
+Version 1.05.<br>
+Copyright &copy;2013 by <a target="_blank" href="http://www.advantech.com/eautomation/">Advantech Corp.</a>
+</footer>
+</center>
+</body>
+</html>
+
+<script>
+
+var aiCanvas;
+var aiCtx;
+var scanInterval = 1000;
+var aiTotal = 8;
+var aiPadSize = 30;
+var aiGridSize = 12;
+var aiStepSize = 6;
+var aiColumnInc = 0;
+var fontSize = 12;
+var aiRangeReady = false;
+var aiRangeName, aiRangeMax, aiRangeMin, aiRangeUnit;
+var aiValue, aiColor;
+var aiCntMaxTotal, aiCntIndex, aiCntTotal;
+var aiDataArray;
+var aiPolling, aiPollingCount;
+var aiFailCount, aiWaitCount;
+var aiRangeFailCount;
+var lightOnSrc, lightOffSrc;
+var doCanvas;
+var doCtx;
+var doTotal = 2;
+var doPadSize = 30;
+var doGridSize = 16;
+var doStepSize = 8;
+var doColumnInc = 0;
+var doCntMaxTotal, doCntIndex, doCntTotal;
+var doStatus;
+var doDataArray;
+var doPolling, doPollingCount;
+var doFailCount, doWaitCount;
+var maxWait = 5;
+var maxFail = 3;
+var preTd = -1;
+
+function AdamTrend_Init()
+{
+	//Init Ai
+	aiValue = new Array(aiTotal);
+	aiRangeName = new Array(aiTotal);
+	aiRangeMax = new Array(aiTotal);
+	aiRangeMin = new Array(aiTotal);
+	aiRangeUnit = new Array(aiTotal);
+	aiColor = new Array(aiTotal);
+	aiPollingCount = 0;
+	aiPolling = 0;
+	aiFailCount = 0;
+	
+	aiColor[0] = "#FF0040"; // red
+	aiColor[1] = "#FFA500"; // orange
+	aiColor[2] = "#FFD700"; // gold
+	aiColor[3] = "#00FF00"; // lime
+	aiColor[4] = "#00BFFF";//"#0000FF"; // blue
+	aiColor[5] = "#BA55D3";//"#800080"; // purple
+	aiColor[6] = "#80A080"; // gray
+	aiColor[7] = "#FF00FF"; // pink
+	//
+	for (var iCh=0; iCh<aiTotal; iCh++)
+	{
+		aiValue[iCh] = 0;
+		document.getElementById("AI"+iCh).innerHTML = "----";
+	}
+	//	
+	//Init Do
+  doStatus = new Array(doTotal);
+	lightOnSrc  = "data:image/png;base64,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";
+	lightOffSrc = "data:image/png;base64,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";
+	doPollingCount = 0;
+	doPolling = 0;
+	doFailCount = 0;
+	doWaitCount = 0;
+	//
+  for (var iCh=0; iCh<doTotal; iCh++)
+	{
+		doStatus[iCh] = 0;
+		document.getElementById("DO"+iCh).src = lightOffSrc;
+	}
+  //
+	aiCanvas = document.getElementById("adamAiCanvas");
+  doCanvas = document.getElementById("adamDoCanvas");
+	try
+	{
+		aiCtx = aiCanvas.getContext("2d");
+		aiCanvas.width = document.getElementById("TBL0").offsetWidth;
+		aiCanvas.height = aiPadSize*2 + 240;
+		doCtx = doCanvas.getContext("2d");
+    doCanvas.width = document.getElementById("TBL0").offsetWidth;		
+		doCanvas.height = doPadSize*2 + doGridSize*doTotal+doGridSize/2;
+		// deal with data
+		aiCntMaxTotal = Math.floor((aiCanvas.clientWidth - aiPadSize*2)/aiStepSize) + 1;
+		aiCntTotal = 0;
+		aiCntIndex = 0;
+	  doCntMaxTotal = Math.floor((doCanvas.clientWidth - doPadSize*2)/doStepSize) + 1;
+		doCntTotal = 0;
+		doCntIndex = 0;
+	}
+	catch (e)
+	{
+		aiCtx = null;
+		doCtx = null;
+		alert("Your browser doesn't support Canvas! The historical data will not be shown!");
+	}
+}
+
+function AdamTrend_DrawAiLabel()
+{
+	var iCnt, x, y1, y2;
+
+	aiDataArray = new Array(aiTotal);
+	aiCtx.font=fontSize+"px Arial";
+	// new data array & draw label
+	x = aiCanvas.width - aiPadSize + 1;
+	y1 = aiPadSize+((aiGridSize+fontSize)/2);
+	for (var iCh=0; iCh<aiTotal; iCh++)
+	{
+		aiDataArray[iCh] = new Array(aiCntMaxTotal);
+		y2 = y1 + (aiGridSize + 10)*iCh;
+		// fill channel background
+		aiCtx.fillStyle=aiColor[iCh];
+		aiCtx.fillRect(x - 1, y2 - 1, aiPadSize - 2, fontSize + 2);
+		// fill channel text
+		aiCtx.fillStyle="#FFFFFF";
+		aiCtx.fillText("AI-"+iCh, x, y2 - 1 + fontSize);
+	}
+	// draw buttom label
+	y1 = aiCanvas.clientHeight - aiPadSize;
+	y2 = y1 + 10;
+	x = aiCanvas.clientWidth - aiPadSize;
+	aiCtx.fillStyle="#000000";
+	aiCtx.strokeStyle="#000000";
+	aiCtx.lineWidth=1;
+	iCnt = 0;
+	while (x >= aiPadSize)
+	{
+		aiCtx.beginPath();
+		aiCtx.moveTo(x, y1);
+		aiCtx.lineTo(x, y2);
+		aiCtx.stroke();
+		if (iCnt < 10)
+			aiCtx.fillText(iCnt, x-3, y2+fontSize+2);
+		else
+			aiCtx.fillText(iCnt, x-6, y2+fontSize+2);
+		//
+		iCnt += Math.floor((aiGridSize*2/aiStepSize)*scanInterval/1000);
+		x -= aiGridSize*2;
+	}
+}
+
+function AdamTrend_DrawDoLabel()
+{
+	var iCnt, x, y1, y2;
+
+	doDataArray = new Array(doTotal);
+	doCtx.font=fontSize+"px Arial";
+	// new data array & draw label
+	x = doCanvas.width - doPadSize + 1;
+	y1 = doPadSize+((doGridSize+fontSize)/2);
+	for (var iCh=0; iCh<doTotal; iCh++)
+	{
+		doDataArray[iCh] = new Array(doCntMaxTotal);
+		y2 = y1 + doGridSize*iCh;
+		doCtx.fillText("DO-"+iCh, 0, y2);
+		doCtx.fillText("DO-"+iCh, x, y2);
+	}
+	// draw buttom label
+	y1 = doCanvas.clientHeight - doPadSize;
+	y2 = y1 + 10;
+	x = doCanvas.clientWidth - doPadSize;
+  doCtx.fillStyle="#000000";
+	doCtx.strokeStyle="#000000";
+	doCtx.lineWidth=1;
+	iCnt = 0;
+	while (x >= doPadSize)
+	{
+		doCtx.beginPath();
+		doCtx.moveTo(x, y1);
+		doCtx.lineTo(x, y2);
+		doCtx.stroke();
+		if (iCnt < 10)
+			doCtx.fillText(iCnt, x-3, y2+fontSize+2);
+		else
+			doCtx.fillText(iCnt, x-6, y2+fontSize+2);
+		//
+		iCnt += Math.floor((doGridSize*2/doStepSize)*scanInterval/1000);
+		x -= doGridSize*2;
+	}		
+}
+
+function AdamTrend_UpdateAiData()
+{
+	//Ai
+	if (aiCntTotal == 0)
+	{
+		aiCntIndex = 0;
+		aiCntTotal = 1;
+	}
+	else if (aiCntTotal < aiCntMaxTotal)
+	{
+		aiCntTotal++;
+		aiCntIndex++;
+	}
+	else
+	{
+		if (aiCntIndex < aiCntMaxTotal - 1)
+			aiCntIndex++;
+		else
+			aiCntIndex = 0;
+	}
+	//
+	for (var iCh=0; iCh<aiTotal; iCh++)
+		aiDataArray[iCh][aiCntIndex] = aiValue[iCh];
+
+}
+
+function AdamTrend_UpdateDoData()
+{
+	if (doCntTotal == 0)
+	{
+		doCntIndex = 0;
+		doCntTotal = 1;
+	}
+	else if (doCntTotal < doCntMaxTotal)
+	{
+		doCntTotal++;
+		doCntIndex++;
+	}
+	else
+	{
+		if (doCntIndex < doCntMaxTotal - 1)
+			doCntIndex++;
+		else
+			doCntIndex = 0;
+	}
+	//
+	for (var iCh=0; iCh<doTotal; iCh++)
+		doDataArray[iCh][doCntIndex] = doStatus[iCh];
+}
+
+function AdamTrend_RefreshAiDataLine(iCh)
+{
+	var iCnt, iIdx, x, yOn, yOff
+	var val, rectHeight, startPoint;
+	var y;
+	if (aiCntTotal > 1)
+	{
+		iCnt = 0;
+		iIdx = aiCntIndex;
+		startPoint = aiCanvas.clientHeight - aiPadSize;
+		rectHeight = aiCanvas.clientHeight - aiPadSize * 2;
+		aiCtx.strokeStyle = aiColor[iCh];
+		if (preTd == iCh)
+			aiCtx.lineWidth=3;
+		else
+			aiCtx.lineWidth=1;
+		aiCtx.beginPath();
+		while (iCnt < aiCntTotal)
+		{
+			x = aiCanvas.clientWidth - aiPadSize - aiStepSize*iCnt -1;
+			if (x < aiPadSize)
+				x = aiPadSize;
+			val = aiDataArray[iCh][iIdx];
+			y = Math.floor(startPoint - rectHeight*parseInt(val, 16)/65535);
+			//
+			if (iCnt == 0)
+				aiCtx.moveTo(x, y);
+			else
+				aiCtx.lineTo(x, y);
+			//
+			if (iIdx == 0)
+				iIdx = aiCntTotal - 1;
+			else
+				iIdx--;
+			iCnt++;
+		}
+		aiCtx.stroke();
+	}
+}
+
+function AdamTrend_RefreshDoDataLine(iCh)
+{
+	var iCnt, iIdx, x, yOn, yOff
+	var preX, preVal, val;
+	var y = new Array(2);
+	if (doCntTotal > 1)
+	{
+		y[0] = doPadSize+doGridSize+doGridSize*iCh; // channel OFF
+		y[1] = doPadSize+doGridSize+doGridSize*iCh-doGridSize/2; // channel ON
+		doCtx.strokeStyle="#FF3300";
+    doCtx.fillStyle="#FF3300";
+
+		iCnt = 0;
+		iIdx = doCntIndex;
+		doCtx.lineWidth=1;
+		doCtx.beginPath();
+		while (iCnt < doCntTotal)
+		{
+			x = doCanvas.clientWidth - doPadSize - doStepSize*iCnt -1;
+			if (x < doPadSize)
+				x = doPadSize;
+
+			//doStatus value (0) : Di Low
+			//doStatus value (1) : Di High
+	    //doStatus value (2) : Di Low, mapping Ai alarm setting.
+	    //doStatus value (3) : Di High mapping AI alarm setting.
+	    
+			val = doDataArray[iCh][iIdx];
+			
+			if (val >= 2)
+			  val = val -2;
+			  
+			//
+			if (iCnt == 0)
+				doCtx.moveTo(x, y[val]);
+			else
+			{
+				if (preVal == val)
+					doCtx.lineTo(x, y[val]);
+				else
+				{
+					doCtx.lineTo(preX, y[val]);
+					doCtx.lineTo(x, y[val]);
+				}
+				// to fill high part
+				if (val == 1)
+					doCtx.fillRect(x, y[1], doStepSize, doGridSize/2 + 1);
+			}
+			//
+			preX = x;
+			preVal = val;
+			if (iIdx == 0)
+				iIdx = doCntTotal - 1;
+			else
+				iIdx--;
+			iCnt++;
+		}
+		doCtx.stroke();
+	}
+}
+
+function AdamTrend_RefreshAiCanvas()
+{
+	// Fill with gradient
+	aiCtx.fillStyle="#FFFAFA";
+	aiCtx.fillRect(aiPadSize, aiPadSize, aiCanvas.clientWidth - aiPadSize*2, aiCanvas.clientHeight - aiPadSize*2);
+	// draw row	
+	aiCtx.strokeStyle="#DCDCDC";//"#E6E6FA";
+	aiCtx.lineWidth=1;
+	for (var y=aiPadSize; y<aiCanvas.clientHeight - aiPadSize; y+=aiGridSize)
+	{
+		aiCtx.beginPath();
+		aiCtx.moveTo(aiPadSize, y);
+		aiCtx.lineTo(aiCanvas.clientWidth - aiPadSize, y);
+		aiCtx.stroke();
+	}
+	// draw column
+	for (var x = aiCanvas.clientWidth - aiPadSize - aiColumnInc; x > aiPadSize; x -= aiGridSize)
+	{
+		aiCtx.beginPath();
+		aiCtx.moveTo(x, aiPadSize);
+		aiCtx.lineTo(x, aiCanvas.clientHeight - aiPadSize);
+		aiCtx.stroke();
+	}
+	aiColumnInc += aiStepSize;
+	if (aiColumnInc >= aiGridSize)
+		aiColumnInc -= aiGridSize;
+	// draw data line
+	for (var iCh=0; iCh<aiTotal; iCh++)
+		AdamTrend_RefreshAiDataLine(iCh);
+	// draw border
+	aiCtx.strokeStyle="#E6E6FA";
+	aiCtx.lineWidth=2;
+	aiCtx.beginPath();
+	aiCtx.moveTo(aiPadSize - 1, aiPadSize - 1);
+	aiCtx.lineTo(aiCanvas.clientWidth - aiPadSize + 1, aiPadSize - 1);
+	aiCtx.lineTo(aiCanvas.clientWidth - aiPadSize + 1, aiCanvas.clientHeight - aiPadSize + 1);
+	aiCtx.lineTo(aiPadSize - 1, aiCanvas.clientHeight - aiPadSize + 1);
+	aiCtx.lineTo(aiPadSize - 1, aiPadSize - 1);
+	aiCtx.stroke();
+}
+
+function AdamTrend_RefreshDoCanvas()
+{
+	// Fill with gradient
+	doCtx.fillStyle="#FFFAFA";
+	doCtx.fillRect(doPadSize, doPadSize, doCanvas.clientWidth - doPadSize*2, doCanvas.clientHeight - doPadSize*2);
+	// draw row	
+	doCtx.strokeStyle="#DCDCDC";//"#E6E6FA";
+	doCtx.lineWidth=1;
+	for (var y=doPadSize; y<doCanvas.clientHeight - doPadSize; y+=doGridSize)
+	{
+		doCtx.beginPath();
+		doCtx.moveTo(doPadSize, y);
+		doCtx.lineTo(doCanvas.clientWidth - doPadSize, y);
+		doCtx.stroke();
+	}
+	// draw column
+    for (var x = doCanvas.clientWidth - doPadSize - doColumnInc; x > doPadSize; x -= doGridSize)	
+    {
+		doCtx.beginPath();
+		doCtx.moveTo(x, doPadSize);
+		doCtx.lineTo(x, doCanvas.clientHeight - doPadSize);
+		doCtx.stroke();
+	}
+	doColumnInc += doStepSize;
+	if (doColumnInc >= doGridSize)
+		doColumnInc -= doGridSize;
+	// draw data line
+	for (var iCh=0; iCh<doTotal; iCh++)
+		AdamTrend_RefreshDoDataLine(iCh);
+	// draw border
+	doCtx.strokeStyle="#E6E6FA";
+	doCtx.lineWidth=2;
+	doCtx.beginPath();
+	doCtx.moveTo(doPadSize - 1, doPadSize - 1);
+	doCtx.lineTo(doCanvas.clientWidth - doPadSize + 1, doPadSize - 1);
+	doCtx.lineTo(doCanvas.clientWidth - doPadSize + 1, doCanvas.clientHeight - doPadSize + 1);
+	doCtx.lineTo(doPadSize - 1, doCanvas.clientHeight - doPadSize + 1);
+	doCtx.lineTo(doPadSize - 1, doPadSize - 1);
+	doCtx.stroke();
+}
+
+function pageOnInit()
+{
+	AdamTrend_Init();
+	if (aiCtx != null)
+		AdamTrend_DrawAiLabel();
+	if (doCtx != null)
+		AdamTrend_DrawDoLabel();
+	httpGetAiRange();
+	pageOnTimer();
+}
+
+function pageOnTimer()
+{
+	if (aiRangeReady == true)
+	{
+		httpGetAiData();
+		if (aiCtx != null)
+		{
+			AdamTrend_UpdateAiData();
+			AdamTrend_RefreshAiCanvas();
+		}
+		pageUpdateData();
+	}
+	else
+		aiRangeFailCount++;
+		
+	httpGetDoData();
+	if (doCtx != null)
+	{
+		AdamTrend_UpdateDoData();
+		AdamTrend_RefreshDoCanvas();
+	}
+	pageUpdateLights();			
+	
+	//
+	if (aiFailCount == maxFail)
+		alert("AI polling has failed more than 5 times, polling suspended!");
+	else if (aiRangeFailCount == maxFail)
+		alert("Failed to get AI range! You may refresh this page to retry");
+	else if (doFailCount == maxFail)
+	{
+		document.getElementById("BTN0").disabled = true;
+		alert("DO polling has failed " + maxFail + " times, polling suspended!");
+	}		
+	else
+		setTimeout(function(){pageOnTimer()}, scanInterval);
+}
+
+function pageUpdateData()
+{
+	var engVal;
+
+	for (var iCh=0; iCh<aiTotal; iCh++)
+	{
+		engVal = parseInt(aiRangeMin[iCh]) + parseInt(aiValue[iCh],16)*(aiRangeMax[iCh] - aiRangeMin[iCh])/65535;
+		document.getElementById("AI"+iCh).innerHTML = engVal.toFixed(3) + " " + aiRangeUnit[iCh];
+	}
+}
+
+function pageUpdateLights()
+{
+	//doStatus value (0) : Di Low
+	//doStatus value (1) : Di High
+	//doStatus value (2) : Di Low, mapping Ai alarm setting.
+	//doStatus value (3) : Di High mapping AI alarm setting.
+	
+	for (var iCh=0; iCh<doTotal; iCh++)
+	{
+			if ((document.getElementById("DO" + iCh).alt == "0") && (doStatus[iCh] == 1))
+		  {
+			  document.getElementById("DO" + iCh).alt = "1";
+			  document.getElementById("DO" + iCh).src = lightOnSrc;
+		  }
+		  else if ((document.getElementById("DO" + iCh).alt == "1")&& (doStatus[iCh] == 0))
+		  {
+			  document.getElementById("DO" + iCh).alt = "0";
+			  document.getElementById("DO" + iCh).src = lightOffSrc;
+		  }
+		  else if ((document.getElementById("DO" + iCh).alt == "0") && (doStatus[iCh] == 3))
+		  {
+			  document.getElementById("DO" + iCh).alt = "1";
+			  document.getElementById("DO" + iCh).src = lightOnSrc;
+		  }
+		  else if ((document.getElementById("DO" + iCh).alt == "1")&& (doStatus[iCh] == 2))
+		  {
+			  document.getElementById("DO" + iCh).alt = "0";
+			  document.getElementById("DO" + iCh).src = lightOffSrc;
+		  }		  	
+	}
+}
+
+function pageOnTdClick(iAi)
+{
+	var preLab, nowLab, preEle, nowEle;
+
+	if (aiCtx != null && aiRangeReady == true && preTd != iAi)
+	{
+		if (preTd >= 0)
+		{
+			preLab = document.getElementById("LA"+preTd);
+			preEle = document.getElementById("AI"+preTd);
+			preLab.style.backgroundColor = "#ADD8E6";
+			preEle.style.backgroundColor = "#ADD8E6";
+		}
+		nowLab = document.getElementById("LA"+iAi);
+		nowEle = document.getElementById("AI"+iAi);
+		nowLab.style.backgroundColor = aiColor[iAi];
+		nowEle.style.backgroundColor = aiColor[iAi];
+		// fill background
+		aiCtx.fillStyle = aiColor[iAi];
+		aiCtx.fillRect(1, aiPadSize - fontSize/2, aiPadSize - 3, fontSize + 2);
+		aiCtx.fillRect(1, (aiCanvas.clientHeight - fontSize)/2, aiPadSize - 3, fontSize + 2);
+		aiCtx.fillRect(1, aiCanvas.clientHeight - aiPadSize - fontSize/2, aiPadSize - 3, fontSize + 2);
+		// fill channel text
+		aiCtx.fillStyle="#000000";
+		aiCtx.fillText(aiRangeMax[iAi], 2, aiPadSize - fontSize/2 + fontSize - 1);
+		aiCtx.fillText(aiRangeUnit[iAi], 2, (aiCanvas.clientHeight - fontSize)/2 + fontSize - 1);
+		aiCtx.fillText(aiRangeMin[iAi], 2, aiCanvas.clientHeight - aiPadSize - fontSize/2 + fontSize - 1);
+		//
+		preTd = iAi;
+	}
+}
+
+function pageOnCbxClick(iDo)
+{
+	var bAll = true;
+	if (iDo == 99)
+	{
+		for (var iCh=0; iCh<doTotal; iCh++)
+			document.getElementById("CHK"+iCh).checked = document.getElementById("ALL").checked;
+	}
+	else
+	{
+		for (var iCh=0; iCh<doTotal; iCh++)
+		{
+			if (document.getElementById("CHK"+iCh).checked == false)
+			{
+				bAll = false;
+				break;
+			}
+		}
+		document.getElementById("ALL").checked = bAll;
+	}
+}
+
+function pageOnApplyClick()
+{
+	var szPostData = "";
+	var xmlHttp = null;
+	
+	for (var iCh=0; iCh<doTotal; iCh++)
+	{
+		if (document.getElementById("CHK"+iCh).checked)
+			szPostData += "DO" + iCh + "=1";
+		else
+			szPostData += "DO" + iCh + "=0";
+		if (iCh<doTotal-1)
+			szPostData += "&";
+	}
+	try
+	{
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlHttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+			xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlHttp.onreadystatechange=function()
+		{
+			if (xmlHttp.readyState==4)
+			{
+				if (xmlHttp.status==200)
+				{
+					xmlDoc=xmlHttp.responseXML;
+					if (xmlDoc.documentElement.attributes[0].nodeValue != "OK")
+						alert("Set DO failed! " + xmlDoc.documentElement.attributes[0].nodeValue);
+				}
+				else
+					alert(" DoOutErr:" + xmlHttp.status + "!");
+			}
+		}
+		xmlHttp.open( "POST", "digitaloutput/all/value", true );
+		xmlHttp.send(szPostData);
+	}
+	catch(e)
+	{
+		alert(e);
+	}
+}
+
+function httpGetAiRange()
+{
+	var xmlHttp = null;
+	
+	try
+	{
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlHttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+			xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlHttp.onreadystatechange=function()
+		{
+			var szPoll;
+			var xmlDoc;
+			var aiRecords;
+			var iCh;
+			
+			if (xmlHttp.readyState==4)
+			{
+				if (xmlHttp.status==200)
+				{
+					xmlDoc=xmlHttp.responseXML;
+					if (xmlDoc.documentElement.attributes[0].nodeValue == "OK")
+					{
+						aiRecords = xmlDoc.getElementsByTagName("AI");
+						for (var iCnt=0; iCnt<aiRecords.length; iCnt++)
+						{
+							iCh = aiRecords[iCnt].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+							if (iCh < aiTotal)
+							{
+								aiRangeName[iCh] = aiRecords[iCnt].getElementsByTagName("NAME")[0].childNodes[0].nodeValue;
+								aiRangeMax[iCh] = aiRecords[iCnt].getElementsByTagName("MAX")[0].childNodes[0].nodeValue;
+								aiRangeMin[iCh] = aiRecords[iCnt].getElementsByTagName("MIN")[0].childNodes[0].nodeValue;
+								aiRangeUnit[iCh] = aiRecords[iCnt].getElementsByTagName("UNIT")[0].childNodes[0].nodeValue;
+							}
+						}
+						aiRangeReady = true;
+						pageOnTdClick(0);
+					}
+					else
+						document.getElementById("AIPOLL").innerHTML += " AiErr1:" + xmlDoc.documentElement.attributes[0].nodeValue + "!";
+				}
+				else
+					document.getElementById("AIPOLL").innerHTML += " AiErr2:" + xmlHttp.status + "!";
+			}
+		}
+		xmlHttp.open( "GET", "analoginput/all/range", true );
+		xmlHttp.send();
+	}
+	catch(e)
+	{
+		alert(e);
+	}
+}
+
+function httpGetAiData()
+{
+	var xmlHttp = null;
+	
+	try
+	{
+		if (aiPolling == 0)
+		{
+			aiFailCount = 0;
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlHttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+				xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlHttp.onreadystatechange=function()
+			{
+				var szPoll;
+				var xmlDoc;
+				var aiRecords;
+				var iCh;
+				
+				if (xmlHttp.readyState==4)
+				{
+					if (xmlHttp.status==200)
+					{
+						xmlDoc=xmlHttp.responseXML;
+						if (xmlDoc.documentElement.attributes[0].nodeValue == "OK")
+						{
+							aiRecords = xmlDoc.getElementsByTagName("AI");
+							if (aiRecords != null)
+							{
+								for (var iCnt=0; iCnt<aiRecords.length; iCnt++)
+								{
+									iCh = aiRecords[iCnt].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+									if (iCh < aiTotal)
+										aiValue[iCh] = aiRecords[iCnt].getElementsByTagName("VALUE")[0].childNodes[0].nodeValue;
+								}
+							}
+							else
+								document.getElementById("AIPOLL").innerHTML += " AiErr0:AI null!";
+						}
+						else
+							document.getElementById("AIPOLL").innerHTML += " AiErr1:" + xmlDoc.documentElement.attributes[0].nodeValue + "!";
+					}
+					else
+						document.getElementById("AIPOLL").innerHTML += " AiErr2:" + xmlHttp.status + "!";
+					aiPolling = 0;
+					aiFailCount = 0; // reset fail count
+				}
+			}
+			xmlHttp.open( "GET", "analoginput/all/value", true );
+			xmlHttp.send();
+			aiPolling = 1;
+			aiPollingCount++;
+			document.getElementById("AIPOLL").innerHTML = "Polling " + aiPollingCount + " times...";
+		}
+		else
+		{
+			aiWaitCount++;
+			if (aiWaitCount == maxWait)
+			{
+				aiFailCount++;
+				if (aiFailCount < maxFail)
+				{
+					aiPolling = 0; // resend
+				}
+			}
+		}
+	}
+	catch(e)
+	{
+		aiPolling = 0;
+		document.getElementById("AIPOLL").innerHTML = "AiErr3:" + e + "!";
+	}
+}
+
+function httpGetDoData()
+{
+	var xmlHttp = null;
+	
+	try
+	{
+		if (doPolling == 0)
+		{
+			doWaitCount = 0;
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlHttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+				xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlHttp.onreadystatechange=function()
+			{
+				var szPoll;
+				var xmlDoc;
+				var doRecords;
+				var iCh;
+				
+				if (xmlHttp.readyState==4)
+				{
+					if (xmlHttp.status==200)
+					{
+						xmlDoc=xmlHttp.responseXML;
+						if (xmlDoc.documentElement.attributes[0].nodeValue == "OK")
+						{
+							doRecords = xmlDoc.getElementsByTagName("DO");
+							if (doRecords != null)
+							{
+							    for (var iCnt=0; iCnt<doRecords.length; iCnt++)
+							    {
+								     iCh = doRecords[iCnt].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+								     if (iCh < doTotal)
+								     {
+									       doStatus[iCh] = doRecords[iCnt].getElementsByTagName("VALUE")[0].childNodes[0].nodeValue;
+									       if (doStatus[iCh] >= 2)
+									       {
+									     	  //2 : Di Low, mapping Ai alarm setting.
+									     	  //3 : Di High mapping AI alarm setting.
+									     	  document.getElementById("CHK"+iCh).style.visibility = "hidden";
+									       }
+									       else
+									       {
+									     	  //0 : Di Low
+									     	  //1 : Di High
+									     	  document.getElementById("CHK"+iCh).style.visibility = "Visible";
+									       }
+									   }
+							    }
+              }							    
+              else
+								document.getElementById("DOPOLL").innerHTML += " DoErr1:DO null!";                             
+						}
+						else
+							document.getElementById("DOPOLL").innerHTML += " DoErr1:" + xmlDoc.documentElement.attributes[0].nodeValue + "!";
+					}
+					else
+						document.getElementById("DOPOLL").innerHTML += " DoErr2:" + xmlHttp.status + "!";
+					doPolling = 0;
+					doFailCount = 0; // reset fail count
+				}
+			}
+			xmlHttp.open( "GET", "digitaloutput/all/value", true );
+			xmlHttp.send();
+			doPolling = 1;
+			doPollingCount++;
+			document.getElementById("DOPOLL").innerHTML = "Polling " + doPollingCount + " times...";
+		}
+	  else
+		{
+			doWaitCount++;
+			if (doWaitCount == maxWait)
+			{
+				doFailCount++;
+				if (doFailCount < maxFail)
+				{
+					doPolling = 0; // resend
+				}
+			}
+		}
+	}
+	catch(e)
+	{
+		doPolling = 0;
+		document.getElementById("DOPOLL").innerHTML = "DoErr3:" + e + "!";
+	}
+}
+
+</script>

@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\lx\desktop\moldmachine\算法测试\图像配准测试\registration\registration\main.cpp(87): warning C4305: “参数”: 从“double”到“float”截断
+  Registration.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\图像配准测试\Registration\x64\Debug\Registration.exe
+  Registration.vcxproj -> C:\Users\lx\Desktop\MoldMachine\算法测试\图像配准测试\Registration\x64\Debug\Registration.pdb (Partial PDB)
